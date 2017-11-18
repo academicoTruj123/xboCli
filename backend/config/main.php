@@ -13,6 +13,13 @@ return [
     'bootstrap' => ['log'],
     'modules' => [],
     'components' => [
+        'view' => [
+             'theme' => [
+                 'pathMap' => [
+                    '@app/views' => '@backend/views'
+                 ],
+             ],
+        ],        
         'request' => [
             'csrfParam' => '_csrf-backend',
         ],
