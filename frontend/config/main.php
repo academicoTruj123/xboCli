@@ -49,15 +49,19 @@ return [
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
-        ],
-        /*
+        ],        
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
         ],
-        */
+        'urlManagerBackend' => [
+            'class' => 'yii\web\urlManager',
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'baseUrl' => 'http://localhost:9091',
+        ],        
     ],
     'params' => $params,
 ];

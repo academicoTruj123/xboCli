@@ -45,6 +45,7 @@ return [
             'errorAction' => 'site/error',
         ],        
         'urlManager' => [
+            'class' => 'yii\web\urlManager',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [

@@ -5,7 +5,12 @@ use yii\helpers\Html;
 /* @var $content string */
 
 
-if (Yii::$app->controller->action->id === 'login') { 
+if ((Yii::$app->controller->action->id === 'login') 
+        OR (((Yii::$app->controller->id === 'login')) AND (Yii::$app->controller->action->id === 'cliente'))
+        OR (((Yii::$app->controller->id === 'login')) AND (Yii::$app->controller->action->id === 'empresa'))                
+        OR (((Yii::$app->controller->id === 'login')) AND (Yii::$app->controller->action->id === 'administrador'))                
+    ) 
+{ 
 /**
  * Do not use this code in your template. Remove it. 
  * Instead, use the code  $this->layout = '//main-login'; in your controller.
