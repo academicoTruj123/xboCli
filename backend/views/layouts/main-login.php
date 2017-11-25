@@ -8,6 +8,7 @@ use yii\helpers\Html;
 
 dmstr\web\AdminLteAsset::register($this);
 LoginAsset::register($this);
+AppAsset::register($this);
 
 ?>
 <?php $this->beginPage() ?>

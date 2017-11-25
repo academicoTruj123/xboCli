@@ -1,0 +1,269 @@
+
+/*Login de cliente*/
+
+.login-page-cliente{  
+    position: relative;
+    z-index: 0;
+    -webkit-transition: background .2s;
+    transition: background .2s;
+    background: rgba(255,255,255,0) !important;    
+}
+
+.login-page-cliente-background{        
+    z-index: -999997;
+   -ms-user-select: none;
+    user-select: none;
+    -webkit-animation-name: background-animacion;
+    animation-name: background-animacion;
+    -webkit-animation-duration: .2s;
+    animation-duration: .2s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;    
+}
+
+
+.login-page-cliente-background-overlay {
+
+   z-index: -999997;
+
+}
+
+.login-page-cliente-background, .login-page-cliente-background-overlay {
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;   
+}
+
+.login-page-cliente-modal {
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    z-index: 1;
+    display: block;
+    margin: 4% auto;
+}
+
+
+.box {
+	position: relative;
+	overflow: hidden;
+	margin-bottom: 20px;
+	border-radius: 2px;
+	z-index: 1;
+}
+
+.box, .box-container {
+	display: table;
+	height: 100%;
+	table-layout: fixed !important;
+	width: 100%;
+}
+.box-row {
+    display: table-row;
+    width: 100% !important;
+    padding: 0 !important;      
+    vertical-align: top;    
+}
+
+
+.box-cell, .box-row {
+    float: none;
+}
+
+.box-cell, .box-cell > * {
+	position: relative;
+}
+    
+
+.box-cell[class*=" col-md-"], .box-cell[class*=" col-lg-"], .box-cell[class*=" col-xl-"], .box-cell[class*=" col-sm-"], .box-cell[class^="col-md-"], .box-cell[class^="col-lg-"], .box-cell[class^="col-xl-"], .box-cell[class^="col-sm-"] {
+	display: block;
+}
+
+
+.pad-all-30 {
+	padding: 30px !important;
+}
+.pad-all-10 {
+	padding: 10px !important;
+}
+.pad-all-20 {
+	padding: 20px !important;
+}
+
+.mar-top-0{
+    margin-top: 0px !important;    
+}
+
+.mar-top-20{
+    margin-top: 20px !important;    
+}
+
+.mar-top-10{
+    margin-top: 10px !important;    
+}
+.mar-bottom-0 {
+	margin-bottom: 0px !important;
+}
+
+
+.div-login-social {
+	padding-bottom: 20px !important;        
+	padding-right: 20px !important;       
+	padding-left: 20px !important;        
+	padding-top: 20px !important;        
+	background-color: #f7f7f7;        
+	border-top-style: solid !important;        
+	border-color: rgba(0,0,0,.05);
+	border-top-width: 1px !important;        
+}
+
+.list-group-item-li-login {
+	padding-left: 0 !important;
+        padding-right: 0 !important;
+        padding-bottom: 0 !important;
+        border-width: 0 !important;
+        padding-top: 8px;   
+        background-color: transparent;
+}
+
+.list-group-icon-login {
+	width: 26px;
+	color: #aaa;
+	font-size: 14px;
+}
+
+
+
+
+@media (min-width: 768px) {
+    
+    .box-cell[class*=" col-md-"], .box-cell[class^="col-md-"] {
+	display: table-cell;
+    }
+    
+    .btn, a, button {
+	outline: 0 !important;
+    }    
+    
+
+}
+
+.login-page-cliente-background-color-primario {
+    background-color: #4f0028 !important;
+}
+
+.login-page-cliente-text-color-primario {
+    color: #fff !important;
+}
+
+.login-page-cliente-brand {
+	font-size: 14px !important;
+	font-family: "Open Sans", Helvetica, Arial, sans-serif;
+	font-weight: 700;
+	display: inline-block;
+        color: #fff !important;        
+}
+
+.login-page-cliente-brand-lg {
+	font-size: 17px !important;
+}
+
+
+.login-page-cliente-logo{
+	width: 18px;
+	height: 18px;
+	float: left;
+	margin-right: 9px;
+	margin-top: 16px;
+	display: inline-block;
+}
+
+.login-page-cliente-brand-lg .login-page-cliente-logo {
+    width: 48px;
+    height: 48px;    
+}
+
+.login-page-cliente-icon {
+    display: block;
+    width: 48px;
+    height: 48px;
+    float: left;
+}
+
+.login-page-cliente-recuperar{        
+	float: right !important;        
+	font-size: 12px !important;        
+	color: #818a91 !important;
+        vertical-align: middle;
+        height: 100%;
+        margin-top: 10px;
+}
+
+.login-page-cliente-recordar{        	        
+        float: left !important;
+	font-size: 12px !important;        
+	color: #818a91 !important; 
+        vertical-align: middle;
+}
+
+.field-chkLoginClienteRecuerdame checkbox{    
+    margin-top: 0px !important;
+}
+
+.field-chkLoginClienteRecuerdame label{
+    padding-left: 0px !important;    
+}
+
+.font-size-20 {
+	font-size: 20px !important;
+}
+
+.font-size-15 {
+	font-size: 15px !important;
+}
+
+.line-height-1 {
+	line-height: 1 !important;
+}
+
+
+.modal-dialog {
+    -webkit-animation-duration: .8s;
+    animation-duration: .8s;  
+    padding: 0% !important;    
+}
+
+.modal-content {
+    border: none;
+    border-radius: 2px;
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    width: 100% !important;
+    padding: 0% !important;
+    margin: 0% !important;
+}
+
+
+@-webkit-keyframes background-animacion {
+ 0% {
+  opacity:0
+ }
+ 100% {
+  opacity:1
+ }
+}
+@keyframes background-animacion {
+ 0% {
+  opacity:0
+ }
+ 100% {
+  opacity:1
+ }
+}

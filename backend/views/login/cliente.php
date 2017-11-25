@@ -24,7 +24,7 @@ $script = <<< JS
     $('input').iCheck({
       checkboxClass: 'icheckbox_square-blue',
       radioClass: 'iradio_square-blue',
-      increaseArea: '20%' // optional
+      increaseArea: '0%' 
     });
   });        
 JS;
@@ -32,54 +32,109 @@ $this->registerJs($script);
 
 ?>
 
-<div class="login-box">
-    <div class="login-logo">
-        <a href="#"><b>Admin</b>LTE</a>
-    </div>
-    <!-- /.login-logo -->
-    <div class="login-box-body">
-        <p class="login-box-msg">Sign in to start your session cliente</p>
+<div class="login-page-cliente">   
+<div class="login-page-cliente-modal">       
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="box box-solid no-margin">                                          
+            <div class="box-row">
+            <div class="box-cell col-md-5 login-page-cliente-background-color-primario login-page-cliente-text-color-primario pad-all-30">                
+              <div class="text-center">
+                <a class="login-page-cliente-brand login-page-cliente-brand-lg text-left" href="www.expoboda.com">
+                    <span class="login-page-cliente-logo mar-top-0">
+                        <span class="login-page-cliente-icon">                            
+                            <?= Html::img('@web/imagenes/iconLoginCliente2.png',[ 'width'=>'48','height'=>'48']);?>
+                        </span> 
+                    </span>                   
+                    <span class="font-size-20 line-height-1" style="float: right;vertical-align: middle;margin-top: 14px;">Expobodas</span>
+                </a>
+                <div class="font-size-15 mar-top-10 line-height-1">Drisfuta,vive,goza.</div>
+              </div>
+
+              <ul class="list-group mar-top-20 mar-bottom-0 visible-md visible-lg">
+                <li class="list-group-item list-group-item-li-login">
+                    <i class="list-group-icon-login fa fa-sitemap "></i> Organice sus eventos </li>
+                <li class="list-group-item list-group-item-li-login">
+                    <i class="list-group-icon-login fa fa-file-text-o"></i> Listado de actividades</li>
+                <li class="list-group-item list-group-item-li-login">
+                    <i class="list-group-icon-login fa fa-outdent "></i> Presupuestos a escoger</li>
+                <li class="list-group-item list-group-item-li-login">
+                    <i class="list-group-icon-login fa fa-heart "></i> y mucho amor... </li>
+              </ul>                    
+                              
+            </div>
+                <div class="box-cell col-md-7 no-padding">
+
+
+                <div class="login-box-body no-padding">
+                    <p class="login-box-msg no-margin no-padding"><br>Iniciar session</p>
+                    <div id="idfrmLogin" class="pad-all-20">
+                        
+                        
+                        
+                    
 
         <?php $form = ActiveForm::begin(['id' => 'login-form', 'enableClientValidation' => false]); ?>
 
         <?= $form
             ->field($model, 'username', $fieldOptions1)
             ->label(false)
-            ->textInput(['placeholder' => $model->getAttributeLabel('username')]) ?>
+            ->textInput(['placeholder' => $model->getAttributeLabel('email')]) ?>
 
         <?= $form
             ->field($model, 'password', $fieldOptions2)
             ->label(false)
             ->passwordInput(['placeholder' => $model->getAttributeLabel('password')]) ?>
+                
+                        <div class="clearfix" style="vertical-align: middle;margin-top:-10px;">   
+            <div class="login-page-cliente-recordar"> 
+                    <?= $form                            
+                            ->field($model, 'rememberMe')
+                            ->checkbox(['class' => 'icheck','id'=>'chkLoginClienteRecuerdame'])
+                            ->label('Recuerdame') ?>
+                
 
-        <div class="row">
-            <div class="col-xs-8">
-                <div class="checkbox">
-                    <?= $form->field($model, 'rememberMe')->checkbox(['class' => 'icheck']) ?>
-                </div>                                                
+
             </div>
-            <!-- /.col -->
-            <div class="col-xs-4">
-                <?= Html::submitButton('Sign in', ['class' => 'btn btn-primary btn-block btn-flat', 'name' => 'login-button']) ?>
-            </div>
-            <!-- /.col -->
+                   
+            <a href="#" class="login-page-cliente-recuperar" id="page-signin-forgot-link">
+                Recuperar password
+            </a>
         </div>
-
-
+        
+        <?= Html::submitButton('Ingresar', ['class' => 'btn btn-block btn-lg btn-primary btn-flat mar-top-20', 'name' => 'login-button']) ?>
+        
         <?php ActiveForm::end(); ?>
-
-        <div class="social-auth-links text-center">
-            <p>- OR -</p>
-            <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in
-                using Facebook</a>
-            <a href="#" class="btn btn-block btn-social btn-google-plus btn-flat"><i class="fa fa-google-plus"></i> Sign
-                in using Google+</a>
         </div>
-        <!-- /.social-auth-links -->
-
-        <a href="#">I forgot my password</a><br>
-        <a href="register.html" class="text-center">Register a new membership</a>
-
+                    
+        <div class="div-login-social">            
+            <a href="#" class="btn btn-block btn-social btn-facebook btn-flat">
+                <i class="fa fa-facebook"></i>
+                <div class="text-center">
+                    Ingresar con <strong>Facebook</strong>
+                </div> 
+            </a>
+        </div>
+        <!-- /.social-auth-links -->                
+    </div>                
+            </div>
+          </div>                                                                                
+        </div>
+      </div>
     </div>
-    <!-- /.login-box-body -->
-</div><!-- /.login-box -->
+    
+    
+  </div>
+
+</div>
+
+              
+ 
+
+<div class="login-page-cliente-background" >
+    <div class="login-page-cliente-background-overlay" style="background: rgb(0, 0, 0) none repeat scroll 0% 0%; opacity: 0.2;"></div>    
+    <?= Html::img('@web/imagenes/f7.jpg', ['alt'=>'login expoboda', 'class'=>'style="width: 100%; left: 0px;"']);?>
+</div>
+
+
+

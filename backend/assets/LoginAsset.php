@@ -13,7 +13,7 @@ class LoginAsset extends AssetBundle
     public $sourcePath = '@vendor/almasaeed2010/adminlte';
     //public $baseUrl = '@web';
     public $css = [                                
-        'plugins/iCheck/square/blue.css',                                      
+            'plugins/iCheck/square/blue.css',                                      
     ];
     public $js = [            
             'plugins/iCheck/icheck.min.js',   
