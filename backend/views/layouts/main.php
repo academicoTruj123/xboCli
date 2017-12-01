@@ -11,6 +11,7 @@ if ((Yii::$app->controller->action->id === 'login')
         OR (((Yii::$app->controller->id === 'login')) AND (Yii::$app->controller->action->id === 'administrador'))                
         OR (((Yii::$app->controller->id === 'login')) AND (Yii::$app->controller->action->id === 'clienteregistro'))                                  
         OR (((Yii::$app->controller->id === 'login')) AND (Yii::$app->controller->action->id === 'clienteconfirmaregistro'))
+        OR (((Yii::$app->controller->id === 'login')) AND (Yii::$app->controller->action->id === 'clienterecuperarcontrasenia'))
     ) 
 { 
 /**
@@ -58,6 +59,13 @@ if ((Yii::$app->controller->action->id === 'login')
         ['content' => $content]
     );        
     }      
+    
+    if((Yii::$app->controller->action->id === 'clienterecuperarcontrasenia')){
+    echo $this->render(
+        'main-login',
+        ['content' => $content]
+    );        
+    } 
     
 } else {
 

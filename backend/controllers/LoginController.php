@@ -31,7 +31,7 @@ class LoginController extends Controller{
         $modeltablacodigo = new Tablacodigo();
         $model = new LoginForm();
         $modelUser = new Usuario();
-        if ($model->load(Yii::$app->request->post())) {                                     
+        if ($model->load(Yii::$app->request->post()) && $model->validate() ) {                                     
             $modelUser =  $model->login($model);
             if( $modelUser== null)
             {
@@ -117,29 +117,16 @@ class LoginController extends Controller{
     }
     
     
-    public function actionClienteconfirmaregistro(){        
-       
-       
-       
-       if(Yii::$app->request->post()){ 
-           
+    public function actionClienteconfirmaregistro(){                             
+       if(Yii::$app->request->post()){            
            $model = new UsuarioClienteRegConf();
-           $modelusu = new Usuario();
-           //echo print_r(Yii::$app->request->post());die();
-           
-        if ($model->load(Yii::$app->request->post()) && $model->validate() ) {
-            
-            
-            
+           $modelusu = new Usuario();                      
+        if ($model->load(Yii::$app->request->post()) && $model->validate() ) {                                   
               if($model->vchCodigoVer == $model->vchCodigoVerUsu  ){  
-                 $modelusu= $model->activarcuenta($model->intIdUsuario);
-                 
-                 
-                 
+                 $modelusu= $model->activarcuenta($model->intIdUsuario);                                                   
                  if($modelusu == null){
                      echo "confirmacion incorrecta,cuenta no se puede activar" ; die();  
-                 }else{
-                     
+                 }else{                     
                   $model = new LoginForm();
                   return $this->render('cliente', [
                             'model' => $model,
@@ -168,4 +155,23 @@ class LoginController extends Controller{
        }             
     }
     
+    
+    public function actionClienterecuperarcontrasenia(){
+        $model = new LoginForm();       
+        $modelusu = new Usuario();        //
+        if ($model->load(Yii::$app->request->post()) && $model->validate()  ) {                       
+            $modelusu = $model->recuperarcontrasenia($model);
+            if($modelusu != null){                    
+                  $model = new LoginForm();
+                 return $this->redirect(['cliente', 'model' => $model]);
+           }else{
+                echo  "error al recuperar contrasenia";
+                return true;
+            }                                
+        } else {           
+            return $this->render('clienterecuperarcontrasenia', [
+                'model' => $model                
+            ]);
+        } 
+    }
 }

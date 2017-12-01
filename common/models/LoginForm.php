@@ -32,7 +32,7 @@ class LoginForm extends Model
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
-            ['password', 'validatePassword'],
+           // ['password', 'validatePassword'],
         ];
     }
 
@@ -59,12 +59,8 @@ class LoginForm extends Model
      * @return bool whether the user is logged in successfully
      */
     public function login($model)
-    {
-        
-        
-        //if ($this->validate()) {   
-            
-            
+    {               
+        //if ($this->validate()) {                           
                 $api = new RestClient([
                         'base_url' =>$this->urlapiLogin,
                         'header' =>[
@@ -99,9 +95,37 @@ class LoginForm extends Model
     protected function getUser()
     {
         if ($this->_user === null) {
-            $this->_user = User::findByUsername($this->username);
+           // $this->_user = User::findByUsername($this->username);
         }
 
         return $this->_user;
     }
+    
+    
+    public function recuperarcontrasenia($model)
+    {               
+        //if ($this->validate()) {                           
+                $api = new RestClient([
+                        'base_url' =>$this->urlapiLogin,
+                        'header' =>[
+                        'Accept' => 'application/json'                    
+                       ]                              
+                ]);                          
+                $result = $api->post('/recuperarcontrasena', json_encode($model),array('Content-Type' => 'application/json'));                         
+                $modelusu = new Usuario(); 
+                $responseapi = new Reponseapi();
+                $responseapi =json_decode($result->response);                
+                if($responseapi->status==true){
+                    $modelusu=$responseapi->data;
+                    $this->mensaje='';                   
+                }else{
+                    $modelusu=null;
+                    $this->mensaje=$responseapi->data;                  
+                }        
+                return $modelusu;                
+        //} else {
+         //   return null;
+       // }
+    }
+    
 }

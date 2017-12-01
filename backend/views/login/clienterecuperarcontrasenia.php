@@ -6,7 +6,7 @@ use yii\bootstrap\ActiveForm;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \common\models\LoginForm */
 
-$this->title = 'Sign In';
+$this->title = 'Recuperar Password';
 
 $fieldOptions1 = [
     'options' => ['class' => 'form-group has-feedback'],
@@ -18,17 +18,7 @@ $fieldOptions2 = [
     'inputTemplate' => "{input}<span class='glyphicon glyphicon-lock form-control-feedback'></span>"
 ];
 
-$script = <<< JS
-    
-  $(function () {        
-    $('input').iCheck({
-      checkboxClass: 'icheckbox_square-blue',
-      radioClass: 'iradio_square-blue',
-      increaseArea: '10%' 
-    });
-  });        
-JS;
-$this->registerJs($script);
+
 
 ?>
 
@@ -67,7 +57,7 @@ $this->registerJs($script);
 
 
                 <div class="login-box-body no-padding">
-                    <p class="login-box-msg no-margin no-padding"><br>Iniciar session</p>
+                    <p class="login-box-msg no-margin no-padding"><br>Recuperar password</p>
                     <div id="idfrmLogin" class="pad-all-20">
                         
                         
@@ -84,59 +74,21 @@ $this->registerJs($script);
         <?= $form
             ->field($model, 'password', $fieldOptions2)
             ->label(false)
-            ->passwordInput(['placeholder' => $model->getAttributeLabel('password')]) ?>
-                
-        <div class="clearfix" style="vertical-align: middle;margin-top:-10px;">   
-            <div class="login-page-cliente-recordar"> 
-                    <?= $form                            
-                            ->field($model, 'rememberMe')
-                            ->checkbox(['class' => 'icheck','id'=>'chkLoginClienteRecuerdame'])
-                            ->label('Recuerdame') ?>                
-            </div>
-                   
-<!--            <a href="#" class="login-page-cliente-recuperar" id="page-signin-forgot-link">
-                Recuperar password               
-            </a>-->
+            ->passwordInput(['placeholder' => 'Ingresar nuevo password']) ?>
 
-        <?= Html::a(
-            'Recuperar password',
-            ['/login/clienterecuperarcontrasenia'],
-            ['class' => 'login-page-cliente-recuperar']
-        ) ?>
-            
-        </div>
         
-        <?= Html::submitButton('Ingresar', ['class' => 'btn btn-block btn-lg btn-primary btn-flat mar-top-20', 'name' => 'login-button']) ?>
+        <?= Html::submitButton('Recuperar', ['class' => 'btn btn-block btn-lg btn-primary btn-flat mar-top-20', 'name' => 'login-button']) ?>
         
         <?php ActiveForm::end(); ?>
         </div>
                     
-        <div class="div-login-social">            
-            <a href="#" class="btn btn-block btn-social btn-facebook btn-flat">
-                <i class="fa fa-facebook"></i>
-                <div class="text-center">
-                    Ingresar con <strong>Facebook</strong>
-                </div> 
-            </a>
-        </div>
         <!-- /.social-auth-links -->                
     </div>                
             </div>
           </div>                                                                                
         </div>
       </div>        
-        
-        
-      <div class="link-registrar-cliente" id="id_registrar_link">
-        ¿Aún no eres miembro?        
-        <?= Html::a(
-            '<u>Unete a nosotros ahora</u>',
-            ['/login/clienteregistro'],
-            ['class' => 'login-page-cliente-text-color-primario']
-        ) ?>
-        
-      </div>
-        
+                       
     </div>        
   </div>
 </div>
