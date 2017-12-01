@@ -10,10 +10,15 @@ $this->title = 'Sign In';
 
 $fieldOptions1 = [
     'options' => ['class' => 'form-group has-feedback'],
-    'inputTemplate' => "{input}<span class='glyphicon glyphicon-envelope form-control-feedback'></span>"
+    'inputTemplate' => "{input}<span class='glyphicon glyphicon-user form-control-feedback'></span>"
 ];
 
 $fieldOptions2 = [
+    'options' => ['class' => 'form-group has-feedback'],
+    'inputTemplate' => "{input}<span class='glyphicon glyphicon-envelope form-control-feedback'></span>"
+];
+
+$fieldOptions3 = [
     'options' => ['class' => 'form-group has-feedback'],
     'inputTemplate' => "{input}<span class='glyphicon glyphicon-lock form-control-feedback'></span>"
 ];
@@ -67,41 +72,33 @@ $this->registerJs($script);
 
 
                 <div class="login-box-body no-padding">
-                    <p class="login-box-msg no-margin no-padding"><br>Iniciar session</p>
-                    <div id="idfrmLogin" class="pad-all-20">
-                        
-                        
-                        
-                    
-
-        <?php $form = ActiveForm::begin(['id' => 'login-form', 'enableClientValidation' => false]); ?>
+                    <p class="login-box-msg no-margin no-padding"><br>Registrar Cliente</p>
+                    <div id="idfrmLogin" class="pad-all-20">                                                                                            
+                                                
+    <?php $form = ActiveForm::begin(['id' => 'login-registro-form', 'enableClientValidation' => false]); ?>
+                            
+        <?= $form
+            ->field($model, 'vchNombres', $fieldOptions1)
+            ->label(false)
+            ->textInput(['placeholder' => $model->getAttributeLabel('vchNombres'),'maxlength' => true]) ?>                        
 
         <?= $form
-            ->field($model, 'username', $fieldOptions1)
+            ->field($model, 'vchCorreo', $fieldOptions2)
             ->label(false)
-            ->textInput(['placeholder' => $model->getAttributeLabel('email')]) ?>
+            ->textInput(['placeholder' => $model->getAttributeLabel('vchCorreo'),'maxlength' => true]) ?>  
 
         <?= $form
-            ->field($model, 'password', $fieldOptions2)
+            ->field($model, 'vchClave', $fieldOptions3)
             ->label(false)
-            ->passwordInput(['placeholder' => $model->getAttributeLabel('password')]) ?>
-                
-        <div class="clearfix" style="vertical-align: middle;margin-top:-10px;">   
-            <div class="login-page-cliente-recordar"> 
-                    <?= $form                            
-                            ->field($model, 'rememberMe')
-                            ->checkbox(['class' => 'icheck','id'=>'chkLoginClienteRecuerdame'])
-                            ->label('Recuerdame') ?>                
-            </div>
-                   
-            <a href="#" class="login-page-cliente-recuperar" id="page-signin-forgot-link">
-                Recuperar password
-            </a>
-        </div>
-        
-        <?= Html::submitButton('Ingresar', ['class' => 'btn btn-block btn-lg btn-primary btn-flat mar-top-20', 'name' => 'login-button']) ?>
-        
-        <?php ActiveForm::end(); ?>
+            ->passwordInput(['placeholder' => $model->getAttributeLabel('vchClave'),'maxlength' => true]) ?>  
+                            
+    <div class="form-group">        
+        <?= Html::submitButton('Registrar', ['class' => 'btn btn-block btn-lg btn-primary btn-flat mar-top-20', 'name' => 'login-registro-button']) ?>
+    </div>
+
+    <?php ActiveForm::end();?>
+                        
+                        
         </div>
                     
         <div class="div-login-social">            
@@ -139,6 +136,3 @@ $this->registerJs($script);
     <div class="login-page-cliente-background-overlay" style="background: rgb(0, 0, 0) none repeat scroll 0% 0%; opacity: 0.2;"></div>    
     <?= Html::img('@web/imagenes/f7.jpg', ['alt'=>'login expoboda', 'class'=>'style="width: 100%; left: 0px;"']);?>
 </div>
-
-
-

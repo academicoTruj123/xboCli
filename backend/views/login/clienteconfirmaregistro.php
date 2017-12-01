@@ -4,31 +4,14 @@ use yii\bootstrap\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
-/* @var $model \common\models\LoginForm */
+/* @var $model backend\models\UsuarioClienteRegConf*/
 
-$this->title = 'Sign In';
+$this->title = 'Confirmar registro';
 
 $fieldOptions1 = [
     'options' => ['class' => 'form-group has-feedback'],
-    'inputTemplate' => "{input}<span class='glyphicon glyphicon-envelope form-control-feedback'></span>"
+    'inputTemplate' => "{input}<span class='glyphicon glyphicon-ok-sign form-control-feedback'></span>"
 ];
-
-$fieldOptions2 = [
-    'options' => ['class' => 'form-group has-feedback'],
-    'inputTemplate' => "{input}<span class='glyphicon glyphicon-lock form-control-feedback'></span>"
-];
-
-$script = <<< JS
-    
-  $(function () {        
-    $('input').iCheck({
-      checkboxClass: 'icheckbox_square-blue',
-      radioClass: 'iradio_square-blue',
-      increaseArea: '10%' 
-    });
-  });        
-JS;
-$this->registerJs($script);
 
 ?>
 
@@ -67,51 +50,32 @@ $this->registerJs($script);
 
 
                 <div class="login-box-body no-padding">
-                    <p class="login-box-msg no-margin no-padding"><br>Iniciar session</p>
-                    <div id="idfrmLogin" class="pad-all-20">
-                        
-                        
-                        
-                    
+                    <p class="login-box-msg no-margin no-padding"><br>Registrar Cliente</p>
+                    <div id="idfrmLogin" class="pad-all-20">                                                                                            
 
-        <?php $form = ActiveForm::begin(['id' => 'login-form', 'enableClientValidation' => false]); ?>
 
+                        
+    <?php $form = ActiveForm::begin(['id' => 'login-confirma-registro-form', 'enableClientValidation' => false]); ?>
+
+                                                                      
+       <?= $form->field($model, 'intIdUsuario')->hiddenInput()->label(false) ?>
+       <?= $form->field($model, 'vchCorreo')->hiddenInput()->label(false) ?>
+       <?= $form->field($model, 'vchCodigoVerUsu')->hiddenInput()->label(false) ?>
+                            
         <?= $form
-            ->field($model, 'username', $fieldOptions1)
+            ->field($model, 'vchCodigoVer', $fieldOptions1)
             ->label(false)
-            ->textInput(['placeholder' => $model->getAttributeLabel('email')]) ?>
+            ->textInput(['placeholder' => $model->getAttributeLabel('vchCodigoVer'),'maxlength' => true]) ?>                        
+                             
+    <div class="form-group">        
+        <?= Html::submitButton('Confirmar', ['class' => 'btn btn-block btn-lg btn-primary btn-flat mar-top-20', 'name' => 'login-registro-button']) ?>
+    </div>
 
-        <?= $form
-            ->field($model, 'password', $fieldOptions2)
-            ->label(false)
-            ->passwordInput(['placeholder' => $model->getAttributeLabel('password')]) ?>
-                
-        <div class="clearfix" style="vertical-align: middle;margin-top:-10px;">   
-            <div class="login-page-cliente-recordar"> 
-                    <?= $form                            
-                            ->field($model, 'rememberMe')
-                            ->checkbox(['class' => 'icheck','id'=>'chkLoginClienteRecuerdame'])
-                            ->label('Recuerdame') ?>                
-            </div>
-                   
-            <a href="#" class="login-page-cliente-recuperar" id="page-signin-forgot-link">
-                Recuperar password
-            </a>
-        </div>
-        
-        <?= Html::submitButton('Ingresar', ['class' => 'btn btn-block btn-lg btn-primary btn-flat mar-top-20', 'name' => 'login-button']) ?>
-        
-        <?php ActiveForm::end(); ?>
+    <?php ActiveForm::end();?>
+                        
+                        
         </div>
                     
-        <div class="div-login-social">            
-            <a href="#" class="btn btn-block btn-social btn-facebook btn-flat">
-                <i class="fa fa-facebook"></i>
-                <div class="text-center">
-                    Ingresar con <strong>Facebook</strong>
-                </div> 
-            </a>
-        </div>
         <!-- /.social-auth-links -->                
     </div>                
             </div>
@@ -139,6 +103,3 @@ $this->registerJs($script);
     <div class="login-page-cliente-background-overlay" style="background: rgb(0, 0, 0) none repeat scroll 0% 0%; opacity: 0.2;"></div>    
     <?= Html::img('@web/imagenes/f7.jpg', ['alt'=>'login expoboda', 'class'=>'style="width: 100%; left: 0px;"']);?>
 </div>
-
-
-

@@ -3,6 +3,9 @@ namespace common\models;
 
 use Yii;
 use yii\base\Model;
+use restclient;
+use backend\models\Usuario;
+use common\models\Reponseapi;
 
 /**
  * Login form
@@ -14,6 +17,8 @@ class LoginForm extends Model
     public $rememberMe = true;
 
     private $_user;
+    public $urlapiLogin ='http://localhost:8099/loginrest';
+    public $mensaje='';
 
 
     /**
@@ -53,13 +58,37 @@ class LoginForm extends Model
      *
      * @return bool whether the user is logged in successfully
      */
-    public function login()
+    public function login($model)
     {
-        if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
-        } else {
-            return false;
-        }
+        
+        
+        //if ($this->validate()) {   
+            
+            
+                $api = new RestClient([
+                        'base_url' =>$this->urlapiLogin,
+                        'header' =>[
+                        'Accept' => 'application/json'                    
+                       ]                              
+                ]);                          
+                $result = $api->post('/validarlogin', json_encode($model),array('Content-Type' => 'application/json'));                         
+                $modelusu = new Usuario(); 
+                $responseapi = new Reponseapi();
+                $responseapi =json_decode($result->response);
+                
+                if($responseapi->status==true){
+                    $modelusu=$responseapi->data;
+                    $this->mensaje='';
+                   // echo 'respuesta despues del registro ';print_r($modelusu);die;
+                }else{
+                    $modelusu=null;
+                    $this->mensaje=$responseapi->data;
+                   //echo 'respuesta despues del registro ';print_r($responseapi->data);die; 
+                }        
+                return $modelusu;                
+        //} else {
+         //   return null;
+       // }
     }
 
     /**

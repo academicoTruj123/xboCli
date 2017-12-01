@@ -13,7 +13,7 @@ use yii\base\Model;
  * @property string $descripcion
  */
 // al migrar: cambiar la linea \yii\db\ActiveRecord  por Model
-class Tablaprueba extends Model
+    class Tablaprueba extends Model
 {     
     public $id;
     public $nombre;

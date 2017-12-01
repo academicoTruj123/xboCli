@@ -9,9 +9,12 @@ if ((Yii::$app->controller->action->id === 'login')
         OR (((Yii::$app->controller->id === 'login')) AND (Yii::$app->controller->action->id === 'cliente'))
         OR (((Yii::$app->controller->id === 'login')) AND (Yii::$app->controller->action->id === 'empresa'))                
         OR (((Yii::$app->controller->id === 'login')) AND (Yii::$app->controller->action->id === 'administrador'))                
+        OR (((Yii::$app->controller->id === 'login')) AND (Yii::$app->controller->action->id === 'clienteregistro'))                                  
+        OR (((Yii::$app->controller->id === 'login')) AND (Yii::$app->controller->action->id === 'clienteconfirmaregistro'))
     ) 
 { 
 /**
+ *   OR (((Yii::$app->controller->id === 'login')) AND (Yii::$app->controller->action->id === 'clienteregistro')) 
  * Do not use this code in your template. Remove it. 
  * Instead, use the code  $this->layout = '//main-login'; in your controller.
  */
@@ -41,6 +44,20 @@ if ((Yii::$app->controller->action->id === 'login')
         ['content' => $content]
     );        
     }
+    
+    if((Yii::$app->controller->action->id === 'clienteregistro')){
+    echo $this->render(
+        'main-login',
+        ['content' => $content]
+    );        
+    } 
+    
+    if((Yii::$app->controller->action->id === 'clienteconfirmaregistro')){
+    echo $this->render(
+        'main-login',
+        ['content' => $content]
+    );        
+    }      
     
 } else {
 

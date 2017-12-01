@@ -250,7 +250,13 @@
     margin: 0% !important;
 }
 
-
+.link-registrar-cliente{    
+	font-size: 14px !important;
+        font-weight: 700 !important;
+        text-align: center !important;
+        margin-top: 15px !important;
+        color: #fff !important;
+}
 @-webkit-keyframes background-animacion {
  0% {
   opacity:0
