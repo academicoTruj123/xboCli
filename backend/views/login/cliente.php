@@ -133,8 +133,7 @@ $this->registerJs($script);
             '<u>Unete a nosotros ahora</u>',
             ['/login/clienteregistro'],
             ['class' => 'login-page-cliente-text-color-primario']
-        ) ?>
-        
+        ) ?>        
       </div>
         
     </div>        

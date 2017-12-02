@@ -12,6 +12,10 @@ if ((Yii::$app->controller->action->id === 'login')
         OR (((Yii::$app->controller->id === 'login')) AND (Yii::$app->controller->action->id === 'clienteregistro'))                                  
         OR (((Yii::$app->controller->id === 'login')) AND (Yii::$app->controller->action->id === 'clienteconfirmaregistro'))
         OR (((Yii::$app->controller->id === 'login')) AND (Yii::$app->controller->action->id === 'clienterecuperarcontrasenia'))
+        OR (((Yii::$app->controller->id === 'login')) AND (Yii::$app->controller->action->id === 'empresaregistro')) 
+        OR (((Yii::$app->controller->id === 'login')) AND (Yii::$app->controller->action->id === 'empresaconfirmaregistro'))                
+        OR (((Yii::$app->controller->id === 'login')) AND (Yii::$app->controller->action->id === 'empresarecuperarcontrasenia'))
+                
     ) 
 { 
 /**
@@ -61,6 +65,27 @@ if ((Yii::$app->controller->action->id === 'login')
     }      
     
     if((Yii::$app->controller->action->id === 'clienterecuperarcontrasenia')){
+    echo $this->render(
+        'main-login',
+        ['content' => $content]
+    );        
+    } 
+    
+    if((Yii::$app->controller->action->id === 'empresaregistro')){
+    echo $this->render(
+        'main-login',
+        ['content' => $content]
+    );        
+    } 
+
+    if((Yii::$app->controller->action->id === 'empresaconfirmaregistro')){
+    echo $this->render(
+        'main-login',
+        ['content' => $content]
+    );        
+    } 
+    
+    if((Yii::$app->controller->action->id === 'empresarecuperarcontrasenia')){
     echo $this->render(
         'main-login',
         ['content' => $content]

@@ -4,31 +4,30 @@ use yii\bootstrap\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
-/* @var $model \common\models\LoginForm */
+/* @var $model backend\models\UsuarioempresaReg*/
 
-$this->title = 'Ingresar';
+$this->title = 'Registrar';
 
 $fieldOptions1 = [
     'options' => ['class' => 'form-group has-feedback'],
-    'inputTemplate' => "{input}<span class='glyphicon glyphicon-envelope form-control-feedback'></span>"
+    'inputTemplate' => "{input}<span class='glyphicon glyphicon-user form-control-feedback'></span>"
 ];
 
 $fieldOptions2 = [
     'options' => ['class' => 'form-group has-feedback'],
+    'inputTemplate' => "{input}<span class='glyphicon glyphicon-envelope form-control-feedback'></span>"
+];
+
+$fieldOptions3 = [
+    'options' => ['class' => 'form-group has-feedback'],
     'inputTemplate' => "{input}<span class='glyphicon glyphicon-lock form-control-feedback'></span>"
 ];
 
-$script = <<< JS
-    
-  $(function () {        
-    $('input').iCheck({
-      checkboxClass: 'icheckbox_square-blue',
-      radioClass: 'iradio_square-blue',
-      increaseArea: '10%' 
-    });
-  });        
-JS;
-$this->registerJs($script);
+$fieldOptions4 = [
+    'options' => ['class' => 'form-group has-feedback'],
+    'inputTemplate' => "{input}<span class='glyphicon glyphicon-registration-mark form-control-feedback'></span>"
+];
+
 
 ?>
 
@@ -57,46 +56,35 @@ $this->registerJs($script);
 <div class="login-page-empresa-content">
 
     <div class="login-box-body no-padding">
-                    <p class="login-box-msg no-margin no-padding"><br>Iniciar session</p>
+                    <p class="login-box-msg no-margin no-padding"><br>Registrar empresa</p>
                     <div id="idfrmLogin" class="pad-all-40">
                         
-                        
-                        
-                    
-
         <?php $form = ActiveForm::begin(['id' => 'login-form', 'enableClientValidation' => false]); ?>
 
-        <?= $form
-            ->field($model, 'username', $fieldOptions1)
-            ->label(false)
-            ->textInput(['placeholder' => $model->getAttributeLabel('email')]) ?>
 
         <?= $form
-            ->field($model, 'password', $fieldOptions2)
+            ->field($model, 'vchNombreComercial', $fieldOptions1)
             ->label(false)
-            ->passwordInput(['placeholder' => $model->getAttributeLabel('password')]) ?>
+            ->textInput(['placeholder' => $model->getAttributeLabel('vchNombreComercial'),'maxlength' => true]) ?>   
+    
+        <?= $form
+            ->field($model, 'vchRuc', $fieldOptions4)
+            ->label(false)
+            ->textInput(['placeholder' => $model->getAttributeLabel('vchRuc'),'maxlength' => true]) ?> 
+    
+        <?= $form
+            ->field($model, 'vchCorreo', $fieldOptions2)
+            ->label(false)
+            ->textInput(['placeholder' => $model->getAttributeLabel('vchCorreo'),'maxlength' => true]) ?>  
+
+        <?= $form
+            ->field($model, 'vchClave', $fieldOptions3)
+            ->label(false)
+            ->passwordInput(['placeholder' => $model->getAttributeLabel('vchClave'),'maxlength' => true]) ?>      
                 
-        <div class="clearfix" style="vertical-align: middle;margin-top:-10px;">   
-            <div class="login-page-cliente-recordar"> 
-                    <?= $form                            
-                            ->field($model, 'rememberMe')
-                            ->checkbox(['class' => 'icheck','id'=>'chkLoginClienteRecuerdame'])
-                            ->label('Recuerdame') ?>                
-            </div>
-                   
-<!--            <a href="#" class="login-page-cliente-recuperar" id="page-signin-forgot-link">
-                Recuperar password               
-            </a>-->
 
-        <?= Html::a(
-            'Recuperar password',
-            ['/login/empresarecuperarcontrasenia'],
-            ['class' => 'login-page-cliente-recuperar']
-        ) ?>
-            
-        </div>
         
-        <?= Html::submitButton('Ingresar', ['class' => 'btn btn-block btn-lg btn-primary btn-flat mar-top-20', 'name' => 'login-button']) ?>
+        <?= Html::submitButton('Registrar', ['class' => 'btn btn-block btn-lg btn-primary btn-flat mar-top-20', 'name' => 'login-button']) ?>
         
         <?php ActiveForm::end(); ?>
         </div>
@@ -112,16 +100,14 @@ $this->registerJs($script);
         <!-- /.social-auth-links -->                
     </div>  
     <div class="link-registrar-empresa" id="id_registrar_link">
-        ¿Aún no eres miembro?        
+        ¿Ya eres miembro?        
         <?= Html::a(
-            '<u>Unete a nosotros ahora</u>',
-            ['/login/empresaregistro'],
+            '<u>Ingresa aqui</u>',
+            ['/login/empresa'],
             ['class' => 'text-color-primario-no-link']
         ) ?>        
     </div>
     
 </div>
-
-
-</div>
-               
+    
+    </div>

@@ -118,10 +118,10 @@ $this->registerJs($script);
         
         
       <div class="link-registrar-cliente" id="id_registrar_link">
-        ¿Aún no eres miembro?        
+        ¿Ya eres miembro?        
         <?= Html::a(
-            '<u>Unete a nosotros ahora</u>',
-            ['/login/clienteregistro'],
+            '<u>Ingresa aqui</u>',
+            ['/login/cliente'],
             ['class' => 'login-page-cliente-text-color-primario']
         ) ?>
         
