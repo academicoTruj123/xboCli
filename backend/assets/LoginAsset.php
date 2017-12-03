@@ -14,6 +14,8 @@ class LoginAsset extends AssetBundle
     //public $baseUrl = '@web';
     public $css = [                                
             'plugins/iCheck/square/blue.css',                                      
+            'plugins/iCheck/square/green.css',    
+            'plugins/iCheck/square/pink.css', 
     ];
     public $js = [            
             'plugins/iCheck/icheck.min.js',   

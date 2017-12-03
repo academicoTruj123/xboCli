@@ -25,6 +25,78 @@ use yii\helpers\ArrayHelper;
  */
 class LoginController extends Controller{
         
+    public function actions()
+    {
+        return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ],            
+            'authcliente' => [
+                        'class' => 'yii\authclient\AuthAction',
+                        'successCallback' => [$this, 'successCallbackcliente'],
+                    ],  
+            'authempresa' => [
+                        'class' => 'yii\authclient\AuthAction',
+                        'successCallback' => [$this, 'successCallbackempresa'],
+                    ],             
+        ];
+    }
+    
+    public function successCallbackcliente($client)
+    {
+//            $user = \common\modules\auth\models\User::find()->where(['email'=>$attributes['email']])->one();                                                            
+//            if(!empty($user)){
+//                Yii::$app->user->login($user);
+//
+//            }else{
+//                // Save session attribute user from FB
+//                $session = Yii::$app->session;
+//                $session['attributes']=$attributes;
+//                // redirect to form signup, variabel global set to successUrl
+//                $this->successUrl = \yii\helpers\Url::to(['signup']);
+//            }
+        
+        $attributes = $client->getUserAttributes();
+        //die(print_r($attributes));            
+        // $attributes  IMPORTANTE :: ver la manera de validar el atributo o cuando facebook no este disponible
+        $model = new UsuarioClienteReg();
+        $model->vchNombres=$attributes['name'];
+        $model->vchCorreo=$attributes['email'];
+        $model->vchClave='';        
+        $model->vchTipoLogin=UsuarioClienteReg::LOGIN_CUENTA_FACEBOOK;        
+        $modelUser = new Usuario();
+        $modelUser =  $model->registrar($model);            
+        if($modelUser != null){                                                
+              return $this->redirect(\Yii::$app->urlManager->createUrl("dashboard/indexcliente"));
+        }else{
+              echo 'No se puede ingresar al sistema con la cuenta de facebook.Intentarlo nuevamente!!'; die();  
+        }                     
+    }
+    
+    public $successUrl = 'Success';
+
+    public function successCallbackempresa($client)
+    {
+        $attributes = $client->getUserAttributes();
+        $model = new UsuarioempresaReg();
+        $model->vchNombreComercial =$attributes['name'];
+        $model->vchRuc ='0000000000';
+        $model->vchCorreo =$attributes['email'];
+        $model->vchClave ='XXXXXX';    
+        $model->intTipoLogin =0;
+        $model->vchTipoLogin=UsuarioempresaReg::LOGIN_CUENTA_FACEBOOK;     
+        $modelUser = new Usuario();
+        $modelUser =  $model->registrar($model);    
+        if($modelUser != null){                    
+              //return  Yii::$app->runAction('dashboard/indexempresa');   
+              //return  $this->redirect('dashboard/indexempresa');             
+             return $this->redirect(\Yii::$app->urlManager->createUrl("dashboard/indexempresa"));
+             
+        }else{
+              echo 'No se puede ingresar al sistema con la cuenta de facebook.Intentarlo nuevamente!!'; die();  
+        }
+    }
+    
     public function actionCliente()
     {        
        // if (!Yii::$app->user->isGuest) {
@@ -40,9 +112,8 @@ class LoginController extends Controller{
                 echo "login incorrecto " .$model->mensaje;                
             }else{   
                $codigoestadocuenta= $modeltablacodigo->getCodigo($modelUser->intCodigoEstado);               
-                if($codigoestadocuenta == Usuario::STATUS_CUENTA_ACTIVADA){                   
-                        echo "login correcto-cuenta activada";
-                        return true;
+                if($codigoestadocuenta == Usuario::STATUS_CUENTA_ACTIVADA){                                           
+                        return  Yii::$app->runAction('dashboard/indexcliente');                        
                 }
                 if( $codigoestadocuenta == Usuario::STATUS_PENDIENTE_ACTIVACION){                   
                         
@@ -86,6 +157,7 @@ class LoginController extends Controller{
        // if (!Yii::$app->user->isGuest) {
        //     return $this->goHome();
        // }
+        
         $modeltablacodigo = new Tablacodigo();
         $model = new LoginForm();
         $modelUser = new Usuario();
@@ -97,8 +169,7 @@ class LoginController extends Controller{
             }else{   
                $codigoestadocuenta= $modeltablacodigo->getCodigo($modelUser->intCodigoEstado);               
                 if($codigoestadocuenta == Usuario::STATUS_CUENTA_ACTIVADA){                   
-                        echo "login correcto-cuenta activada";
-                        return true;
+                        return  Yii::$app->runAction('dashboard/indexempresa');
                 }
                 if( $codigoestadocuenta == Usuario::STATUS_PENDIENTE_ACTIVACION){                   
                         
@@ -131,11 +202,10 @@ class LoginController extends Controller{
         if ($model->load(Yii::$app->request->post()) && $model->validate() ) {                                     
             $modelUser =  $model->login($model);
             if( $modelUser== null)
-            {
-                echo "login incorrecto " .$model->mensaje;                
-            }else{                                                 
-                echo "login correcto-admin";
-                return true;                                               
+            {                
+                echo "login error -admin".$model->mensaje;                
+            }else{                                                                 
+                return  Yii::$app->runAction('dashboard/indexadministrador');   
             }                                
         } else {
             return $this->render('administrador', [

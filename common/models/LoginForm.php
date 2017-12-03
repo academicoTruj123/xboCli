@@ -15,11 +15,15 @@ class LoginForm extends Model
     public $username;
     public $password;
     public $rememberMe = true;
+    public $intTipoLogin;   
 
     private $_user;
     public $urlapiLogin ='http://localhost:8099/loginrest';
     public $mensaje='';
 
+    const LOGIN_CUENTA_SISTEMA = '0201';
+    const LOGIN_CUENTA_FACEBOOK = '0202';
+    
 
     /**
      * @inheritdoc
@@ -66,7 +70,9 @@ class LoginForm extends Model
                         'header' =>[
                         'Accept' => 'application/json'                    
                        ]                              
-                ]);                          
+                ]);    
+                
+                
                 $result = $api->post('/validarlogin', json_encode($model),array('Content-Type' => 'application/json'));                         
                 $modelusu = new Usuario(); 
                 $responseapi = new Reponseapi();

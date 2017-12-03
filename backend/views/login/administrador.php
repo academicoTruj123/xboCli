@@ -46,7 +46,7 @@ $fieldOptions2 = [
 
 
 
-                    <?= Html::submitButton('Ingresar', ['class' => 'btn btn-block btn-lg btn-primary btn-flat mar-top-20', 'name' => 'login-button']) ?>
+                    <?= Html::submitButton('Ingresar', ['class' => 'btn btn-block btn-lg btn-personalizado-3 btn-flat mar-top-20', 'name' => 'login-button']) ?>
 
                     <?php ActiveForm::end(); ?>
 

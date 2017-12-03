@@ -120,6 +120,17 @@
 
 .div-login-social {
 	padding-bottom: 20px !important;        
+	padding-right: 20px !important;       
+	padding-left: 20px !important;        
+	padding-top: 20px !important;        
+	background-color: #f7f7f7;        
+	border-top-style: solid !important;        
+	border-color: rgba(0,0,0,.05);
+	border-top-width: 1px !important;        
+}
+
+.div-login-social-empresa {
+	padding-bottom: 20px !important;        
 	padding-right: 40px !important;       
 	padding-left: 40px !important;        
 	padding-top: 20px !important;        
@@ -128,6 +139,7 @@
 	border-color: rgba(0,0,0,.05);
 	border-top-width: 1px !important;        
 }
+
 
 .list-group-item-li-login {
 	padding-left: 0 !important;
@@ -161,7 +173,7 @@
 }
 
 .login-page-cliente-background-color-primario {
-    background-color: #4f0028 !important;
+    background-color: #4f0028 !important; 
 }
 
 .login-page-cliente-text-color-primario {
@@ -362,4 +374,182 @@
  100% {
   opacity:1
  }
+}
+
+
+/* botones personalizados*/
+/* btn-personalizado-1 : para cliente*/
+/* btn-personalizado-2 : para empresa*/
+.btn-personalizado-1 {
+  color: #932E4D;
+  background-color: #f7c8c9;
+  border-color: #F7E0E0;
+}
+.btn-personalizado-1:focus,
+.btn-personalizado-1.focus {
+  color: #932E4D;
+  background-color: #FEDEE8;
+  border-color: #F9CBDB;
+}
+.btn-personalizado-1:hover {
+  color: #932E4D;
+  background-color: #FEDEE8;
+  border-color: #FDE5F1;
+}
+.btn-personalizado-1:active,
+.btn-personalizado-1.active,
+.open > .dropdown-toggle.btn-personalizado-1 {
+  color: #932E4D;
+  background-color: #FEDEE8;
+  border-color: #FDE5F1;
+}
+.btn-personalizado-1:active:hover,
+.btn-personalizado-1.active:hover,
+.open > .dropdown-toggle.btn-personalizado-1:hover,
+.btn-personalizado-1:active:focus,
+.btn-personalizado-1.active:focus,
+.open > .dropdown-toggle.btn-personalizado-1:focus,
+.btn-personalizado-1:active.focus,
+.btn-personalizado-1.active.focus,
+.open > .dropdown-toggle.btn-personalizado-1.focus {
+  color: #932E4D;
+  background-color: #d4d4d4;
+  border-color: #F9CBDB;
+}
+.btn-personalizado-1:active,
+.btn-personalizado-1.active,
+.open > .dropdown-toggle.btn-personalizado-1 {
+  background-image: none;
+}
+.btn-personalizado-1.disabled:hover,
+.btn-personalizado-1[disabled]:hover,
+fieldset[disabled] .btn-personalizado-1:hover,
+.btn-personalizado-1.disabled:focus,
+.btn-personalizado-1[disabled]:focus,
+fieldset[disabled] .btn-personalizado-1:focus,
+.btn-personalizado-1.disabled.focus,
+.btn-personalizado-1[disabled].focus,
+fieldset[disabled] .btn-personalizado-1.focus {
+  background-color: #f7c8c9;
+  border-color: #F7E0E0;
+}
+.btn-personalizado-1 .badge {
+  color: #fff;
+  background-color: #932E4D;
+}
+
+.btn-personalizado-2 {
+  color: #F3FAF9;
+  background-color: #56c1ab;
+  border-color: #65D8C2;
+}
+.btn-personalizado-2:focus,
+.btn-personalizado-2.focus {
+  color: #F3FAF9;
+  background-color: #77E2CC;
+  border-color: #F9CBDB;
+}
+.btn-personalizado-2:hover {
+  color: #F3FAF9;
+  background-color: #77E2CC;
+  border-color: #94ECDA;
+}
+.btn-personalizado-2:active,
+.btn-personalizado-2.active,
+.open > .dropdown-toggle.btn-personalizado-2 {
+  color: #F3FAF9;
+  background-color: #77E2CC;
+  border-color: #94ECDA;
+}
+.btn-personalizado-2:active:hover,
+.btn-personalizado-2.active:hover,
+.open > .dropdown-toggle.btn-personalizado-2:hover,
+.btn-personalizado-2:active:focus,
+.btn-personalizado-2.active:focus,
+.open > .dropdown-toggle.btn-personalizado-2:focus,
+.btn-personalizado-2:active.focus,
+.btn-personalizado-2.active.focus,
+.open > .dropdown-toggle.btn-personalizado-2.focus {
+  color: #F3FAF9;
+  background-color: #d4d4d4;
+  border-color: #F9CBDB;
+}
+.btn-personalizado-2:active,
+.btn-personalizado-2.active,
+.open > .dropdown-toggle.btn-personalizado-2 {
+  background-image: none;
+}
+.btn-personalizado-2.disabled:hover,
+.btn-personalizado-2[disabled]:hover,
+fieldset[disabled] .btn-personalizado-2:hover,
+.btn-personalizado-2.disabled:focus,
+.btn-personalizado-2[disabled]:focus,
+fieldset[disabled] .btn-personalizado-2:focus,
+.btn-personalizado-2.disabled.focus,
+.btn-personalizado-2[disabled].focus,
+fieldset[disabled] .btn-personalizado-2.focus {
+  background-color: #56c1ab;
+  border-color: #65D8C2;
+}
+.btn-personalizado-2 .badge {
+  color: #fff;
+  background-color: #F3FAF9;
+}
+
+.btn-personalizado-3 {
+  color: #FFFFFF;
+  background-color: #865200;
+  border-color: #956211;
+}
+.btn-personalizado-3:focus,
+.btn-personalizado-3.focus {
+  color: #FFFFFF;
+  background-color: #D3AB6C;
+  border-color: #F9CBDB;
+}
+.btn-personalizado-3:hover {
+  color: #FFFFFF;
+  background-color: #D3AB6C;
+  border-color: #D8B886;
+}
+.btn-personalizado-3:active,
+.btn-personalizado-3.active,
+.open > .dropdown-toggle.btn-personalizado-3 {
+  color: #FFFFFF;
+  background-color: #D3AB6C;
+  border-color: #D8B886;
+}
+.btn-personalizado-3:active:hover,
+.btn-personalizado-3.active:hover,
+.open > .dropdown-toggle.btn-personalizado-3:hover,
+.btn-personalizado-3:active:focus,
+.btn-personalizado-3.active:focus,
+.open > .dropdown-toggle.btn-personalizado-3:focus,
+.btn-personalizado-3:active.focus,
+.btn-personalizado-3.active.focus,
+.open > .dropdown-toggle.btn-personalizado-3.focus {
+  color: #FFFFFF;
+  background-color: #d4d4d4;
+  border-color: #F9CBDB;
+}
+.btn-personalizado-3:active,
+.btn-personalizado-3.active,
+.open > .dropdown-toggle.btn-personalizado-3 {
+  background-image: none;
+}
+.btn-personalizado-3.disabled:hover,
+.btn-personalizado-3[disabled]:hover,
+fieldset[disabled] .btn-personalizado-3:hover,
+.btn-personalizado-3.disabled:focus,
+.btn-personalizado-3[disabled]:focus,
+fieldset[disabled] .btn-personalizado-3:focus,
+.btn-personalizado-3.disabled.focus,
+.btn-personalizado-3[disabled].focus,
+fieldset[disabled] .btn-personalizado-3.focus {
+  background-color: #865200;
+  border-color: #956211;
+}
+.btn-personalizado-3 .badge {
+  color: #fff;
+  background-color: #FFFFFF;
 }

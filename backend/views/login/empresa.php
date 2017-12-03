@@ -22,7 +22,7 @@ $script = <<< JS
     
   $(function () {        
     $('input').iCheck({
-      checkboxClass: 'icheckbox_square-blue',
+      checkboxClass: 'icheckbox_square-green',
       radioClass: 'iradio_square-blue',
       increaseArea: '10%' 
     });
@@ -96,18 +96,34 @@ $this->registerJs($script);
             
         </div>
         
-        <?= Html::submitButton('Ingresar', ['class' => 'btn btn-block btn-lg btn-primary btn-flat mar-top-20', 'name' => 'login-button']) ?>
+        <?= Html::submitButton('Ingresar', ['class' => 'btn btn-block btn-lg btn-personalizado-2 btn-flat mar-top-20', 'name' => 'login-button']) ?>
         
         <?php ActiveForm::end(); ?>
         </div>
+                   
                     
-        <div class="div-login-social">            
+<!--        <div class="div-login-social">            
             <a href="#" class="btn btn-block btn-social btn-facebook btn-flat">
                 <i class="fa fa-facebook"></i>
                 <div class="text-center">
                     Ingresar con <strong>Facebook</strong>
                 </div> 
             </a>
+        </div>-->
+                    
+        <div class="div-login-social-empresa">            
+            <?php use yii\authclient\widgets\AuthChoice; ?>
+            <?php $authAuthChoice = AuthChoice::begin(['baseAuthUrl' => ['login/authempresa'], 'autoRender' => false]); ?>
+            <?php foreach ($authAuthChoice->getClients() as $client): ?>
+                    <?= Html::a( '<i class="fa fa-facebook"></i>
+                            <div class="text-center">
+                                Ingresar con <strong>'. $client->title.'</strong>                    
+                            </div>', 
+                    ['login/authempresa', 'authclient'=> $client->name, ], 
+                    ['class' => "btn btn-block btn-social btn-facebook btn-flat $client->name "]
+                    ) ?>
+            <?php endforeach; ?>
+            <?php AuthChoice::end(); ?>
         </div>
         <!-- /.social-auth-links -->                
     </div>  
