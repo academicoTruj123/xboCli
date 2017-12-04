@@ -66,8 +66,10 @@ class LoginController extends Controller{
         $model->vchTipoLogin=UsuarioClienteReg::LOGIN_CUENTA_FACEBOOK;        
         $modelUser = new Usuario();
         $modelUser =  $model->registrar($model);            
-        if($modelUser != null){                                                
-              return $this->redirect(\Yii::$app->urlManager->createUrl("dashboard/indexcliente"));
+        if($modelUser != null){  
+              Yii::$app->session['ss_user'] =$modelUser;
+              return $this->redirect(\Yii::$app->urlManager->createUrl("dashboard/indexcliente"));                     
+              
         }else{
               echo 'No se puede ingresar al sistema con la cuenta de facebook.Intentarlo nuevamente!!'; die();  
         }                     
@@ -89,7 +91,8 @@ class LoginController extends Controller{
         $modelUser =  $model->registrar($model);    
         if($modelUser != null){                    
               //return  Yii::$app->runAction('dashboard/indexempresa');   
-              //return  $this->redirect('dashboard/indexempresa');             
+              //return  $this->redirect('dashboard/indexempresa'); 
+             Yii::$app->session['ss_user'] =$modelUser;            
              return $this->redirect(\Yii::$app->urlManager->createUrl("dashboard/indexempresa"));
              
         }else{
@@ -112,7 +115,8 @@ class LoginController extends Controller{
                 echo "login incorrecto " .$model->mensaje;                
             }else{   
                $codigoestadocuenta= $modeltablacodigo->getCodigo($modelUser->intCodigoEstado);               
-                if($codigoestadocuenta == Usuario::STATUS_CUENTA_ACTIVADA){                                           
+                if($codigoestadocuenta == Usuario::STATUS_CUENTA_ACTIVADA){
+                        Yii::$app->session['ss_user'] =$modelUser;
                         return  Yii::$app->runAction('dashboard/indexcliente');                        
                 }
                 if( $codigoestadocuenta == Usuario::STATUS_PENDIENTE_ACTIVACION){                   
@@ -168,7 +172,8 @@ class LoginController extends Controller{
                 echo "login incorrecto " .$model->mensaje;                
             }else{   
                $codigoestadocuenta= $modeltablacodigo->getCodigo($modelUser->intCodigoEstado);               
-                if($codigoestadocuenta == Usuario::STATUS_CUENTA_ACTIVADA){                   
+                if($codigoestadocuenta == Usuario::STATUS_CUENTA_ACTIVADA){    
+                        Yii::$app->session['ss_user'] =$modelUser;
                         return  Yii::$app->runAction('dashboard/indexempresa');
                 }
                 if( $codigoestadocuenta == Usuario::STATUS_PENDIENTE_ACTIVACION){                   
@@ -204,7 +209,8 @@ class LoginController extends Controller{
             if( $modelUser== null)
             {                
                 echo "login error -admin".$model->mensaje;                
-            }else{                                                                 
+            }else{
+                Yii::$app->session['ss_user'] =$modelUser;
                 return  Yii::$app->runAction('dashboard/indexadministrador');   
             }                                
         } else {

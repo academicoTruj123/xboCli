@@ -31,7 +31,12 @@ $script = <<< JS
       radioClass: 'iradio_square-blue',
       increaseArea: '10%' 
     });
-  });        
+
+        
+  });   
+      
+
+        
 JS;
 $this->registerJs($script);
 

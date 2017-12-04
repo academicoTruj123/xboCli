@@ -1,6 +1,6 @@
 <?php
 use yii\helpers\Html;
-
+use backend\models\Usuario;
 /* @var $this \yii\web\View */
 /* @var $content string */
 
@@ -96,11 +96,14 @@ if ((Yii::$app->controller->action->id === 'login')
 
     if (class_exists('backend\assets\AppAsset')) {
         backend\assets\AppAsset::register($this);
+        backend\assets\LoginAsset::register($this);
     } else {
         app\assets\AppAsset::register($this);
     }
 
-    dmstr\web\AdminLteAsset::register($this);
+    dmstr\web\AdminLteAsset::register($this);        
+    
+
 
     $directoryAsset = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/adminlte/dist');
     ?>
@@ -114,7 +117,25 @@ if ((Yii::$app->controller->action->id === 'login')
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
     </head>
+    
+    
+    
+<?php if (Yii::$app->session->get('ss_user')): ?>
+   
+    <?php $usersession = new Usuario(); 
+           $usersession =Yii::$app->session->get('ss_user');
+          // echo 'session';           print_r($usersession); die();
+           if ($usersession->intCodigoRol==10): ?>
+       <body class="hold-transition skin-cliente sidebar-mini">
+    <?php else: ?>
+        <body class="hold-transition skin-empresa sidebar-mini">
+    <?php endif; ?>
+<?php else: ?>
     <body class="hold-transition skin-blue sidebar-mini">
+<?php endif; ?>
+        
+        
+        
     <?php $this->beginBody() ?>
     <div class="wrapper">
 

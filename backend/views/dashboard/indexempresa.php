@@ -1,5 +1,6 @@
 <?php
 
+use yii\helpers\Html;
 /* @var $this yii\web\View */
 
 $this->title = 'dashboardempresa';
@@ -12,7 +13,11 @@ $this->title = 'dashboardempresa';
     </div>
 
     <div class="body-content">
-
+        <?= Html::a(
+            'Mi Perfil',
+            ['/usuarioempresa/updateperfil'],            
+            ['class' => 'btn btn-default']
+        ) ?>
 
     </div>
 </div>

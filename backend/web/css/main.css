@@ -1,6 +1,13 @@
 
 /*Login de cliente*/
 
+html,
+body {
+    height: 100%;
+    font-size: 13px !important;
+    font-family: 'Source Sans Pro','Helvetica Neue','Helvetica','Arial,sans-serif' !important;    
+}
+
 .login-page{
     background-color: white;
 }
@@ -552,4 +559,307 @@ fieldset[disabled] .btn-personalizado-3.focus {
 .btn-personalizado-3 .badge {
   color: #fff;
   background-color: #FFFFFF;
+}
+
+
+#idnavcustom-cliente.nav-tabs-custom > .nav-tabs > li.active {
+	border-top-color: #f7c8c9 !important;
+}
+
+#idnavcustom-empresa.nav-tabs-custom > .nav-tabs > li.active {
+	border-top-color: #56c1ab  !important;
+}
+
+.content-wrapper {	
+/*	background-color: #ecf0f5 ;  [ORIGINAL]	*/
+	background-color: #fcfcfc !important;
+}
+
+
+/* NUEVOS SKINS - CLIENTE/EMPRESA/ADMIN */
+
+/*
+ * Skin: CLIENTE
+ * ------------
+ */
+.skin-cliente .main-header .navbar {
+  background-color: #D49193;
+}
+.skin-cliente .main-header .navbar .nav > li > a {
+  color: #ffffff;
+}
+.skin-cliente .main-header .navbar .nav > li > a:hover,
+.skin-cliente .main-header .navbar .nav > li > a:active,
+.skin-cliente .main-header .navbar .nav > li > a:focus,
+.skin-cliente .main-header .navbar .nav .open > a,
+.skin-cliente .main-header .navbar .nav .open > a:hover,
+.skin-cliente .main-header .navbar .nav .open > a:focus,
+.skin-cliente .main-header .navbar .nav > .active > a {
+  background: rgba(0, 0, 0, 0.1);
+  color: #f6f6f6;
+}
+.skin-cliente .main-header .navbar .sidebar-toggle {
+  color: #ffffff;
+}
+.skin-cliente .main-header .navbar .sidebar-toggle:hover {
+  color: #f6f6f6;
+  background: rgba(0, 0, 0, 0.1);
+}
+.skin-cliente .main-header .navbar .sidebar-toggle {
+  color: #fff;
+}
+.skin-cliente .main-header .navbar .sidebar-toggle:hover {
+  background-color: #B25F61;
+}
+@media (max-width: 767px) {
+  .skin-cliente .main-header .navbar .dropdown-menu li.divider {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  .skin-cliente .main-header .navbar .dropdown-menu li a {
+    color: #fff;
+  }
+  .skin-cliente .main-header .navbar .dropdown-menu li a:hover {
+    background: #B25F61;
+  }
+}
+.skin-cliente .main-header .logo {
+  background-color: #B25F61;
+  color: #ffffff;
+  border-bottom: 0 solid transparent;
+}
+.skin-cliente .main-header .logo:hover {
+  background-color: #D5595C;
+}
+.skin-cliente .main-header li.user-header {
+  background-color: #D49193;
+}
+.skin-cliente .content-header {
+  background: transparent;
+}
+.skin-cliente .wrapper,
+.skin-cliente .main-sidebar,
+.skin-cliente .left-side {
+  background-color: #222d32;
+}
+.skin-cliente .user-panel > .info,
+.skin-cliente .user-panel > .info > a {
+  color: #fff;
+}
+.skin-cliente .sidebar-menu > li.header {
+  color: #4b646f;
+  background: #1a2226;
+}
+.skin-cliente .sidebar-menu > li > a {
+  border-left: 3px solid transparent;
+}
+.skin-cliente .sidebar-menu > li:hover > a,
+.skin-cliente .sidebar-menu > li.active > a,
+.skin-cliente .sidebar-menu > li.menu-open > a {
+  color: #ffffff;
+  background: #1e282c;
+}
+.skin-cliente .sidebar-menu > li.active > a {
+  border-left-color: #D49193;
+}
+.skin-cliente .sidebar-menu > li > .treeview-menu {
+  margin: 0 1px;
+  background: #2c3b41;
+}
+.skin-cliente .sidebar a {
+  color: #b8c7ce;
+}
+.skin-cliente .sidebar a:hover {
+  text-decoration: none;
+}
+.skin-cliente .sidebar-menu .treeview-menu > li > a {
+  color: #8aa4af;
+}
+.skin-cliente .sidebar-menu .treeview-menu > li.active > a,
+.skin-cliente .sidebar-menu .treeview-menu > li > a:hover {
+  color: #ffffff;
+}
+.skin-cliente .sidebar-form {
+  border-radius: 3px;
+  border: 1px solid #374850;
+  margin: 10px 10px;
+}
+.skin-cliente .sidebar-form input[type="text"],
+.skin-cliente .sidebar-form .btn {
+  box-shadow: none;
+  background-color: #374850;
+  border: 1px solid transparent;
+  height: 35px;
+}
+.skin-cliente .sidebar-form input[type="text"] {
+  color: #666;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 2px;
+}
+.skin-cliente .sidebar-form input[type="text"]:focus,
+.skin-cliente .sidebar-form input[type="text"]:focus + .input-group-btn .btn {
+  background-color: #fff;
+  color: #666;
+}
+.skin-cliente .sidebar-form input[type="text"]:focus + .input-group-btn .btn {
+  border-left-color: #fff;
+}
+.skin-cliente .sidebar-form .btn {
+  color: #999;
+  border-top-left-radius: 0;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 0;
+}
+.skin-cliente.layout-top-nav .main-header > .logo {
+  background-color: #D49193;
+  color: #ffffff;
+  border-bottom: 0 solid transparent;
+}
+.skin-cliente.layout-top-nav .main-header > .logo:hover {
+  background-color: #D5595C;
+}
+
+/*
+ * Skin: EMPRESA
+ * ------------
+ */
+.skin-empresa .main-header .navbar {
+  background-color: #56C1AC;
+}
+.skin-empresa .main-header .navbar .nav > li > a {
+  color: #ffffff;
+}
+.skin-empresa .main-header .navbar .nav > li > a:hover,
+.skin-empresa .main-header .navbar .nav > li > a:active,
+.skin-empresa .main-header .navbar .nav > li > a:focus,
+.skin-empresa .main-header .navbar .nav .open > a,
+.skin-empresa .main-header .navbar .nav .open > a:hover,
+.skin-empresa .main-header .navbar .nav .open > a:focus,
+.skin-empresa .main-header .navbar .nav > .active > a {
+  background: rgba(0, 0, 0, 0.1);
+  color: #f6f6f6;
+}
+.skin-empresa .main-header .navbar .sidebar-toggle {
+  color: #ffffff;
+}
+.skin-empresa .main-header .navbar .sidebar-toggle:hover {
+  color: #f6f6f6;
+  background: rgba(0, 0, 0, 0.1);
+}
+.skin-empresa .main-header .navbar .sidebar-toggle {
+  color: #fff;
+}
+.skin-empresa .main-header .navbar .sidebar-toggle:hover {
+  background-color: #35A58F;
+}
+@media (max-width: 767px) {
+  .skin-empresa .main-header .navbar .dropdown-menu li.divider {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  .skin-empresa .main-header .navbar .dropdown-menu li a {
+    color: #fff;
+  }
+  .skin-empresa .main-header .navbar .dropdown-menu li a:hover {
+    background: #35A58F;
+  }
+}
+.skin-empresa .main-header .logo {
+  background-color: #35A58F;
+  color: #ffffff;
+  border-bottom: 0 solid transparent;
+}
+.skin-empresa .main-header .logo:hover {
+  background-color: #82DAC9;
+}
+.skin-empresa .main-header li.user-header {
+  background-color: #56C1AC;
+}
+.skin-empresa .content-header {
+  background: transparent;
+}
+.skin-empresa .wrapper,
+.skin-empresa .main-sidebar,
+.skin-empresa .left-side {
+  background-color: #222d32;
+}
+.skin-empresa .user-panel > .info,
+.skin-empresa .user-panel > .info > a {
+  color: #fff;
+}
+.skin-empresa .sidebar-menu > li.header {
+  color: #4b646f;
+  background: #1a2226;
+}
+.skin-empresa .sidebar-menu > li > a {
+  border-left: 3px solid transparent;
+}
+.skin-empresa .sidebar-menu > li:hover > a,
+.skin-empresa .sidebar-menu > li.active > a,
+.skin-empresa .sidebar-menu > li.menu-open > a {
+  color: #ffffff;
+  background: #1e282c;
+}
+.skin-empresa .sidebar-menu > li.active > a {
+  border-left-color: #56C1AC;
+}
+.skin-empresa .sidebar-menu > li > .treeview-menu {
+  margin: 0 1px;
+  background: #2c3b41;
+}
+.skin-empresa .sidebar a {
+  color: #b8c7ce;
+}
+.skin-empresa .sidebar a:hover {
+  text-decoration: none;
+}
+.skin-empresa .sidebar-menu .treeview-menu > li > a {
+  color: #8aa4af;
+}
+.skin-empresa .sidebar-menu .treeview-menu > li.active > a,
+.skin-empresa .sidebar-menu .treeview-menu > li > a:hover {
+  color: #ffffff;
+}
+.skin-empresa .sidebar-form {
+  border-radius: 3px;
+  border: 1px solid #374850;
+  margin: 10px 10px;
+}
+.skin-empresa .sidebar-form input[type="text"],
+.skin-empresa .sidebar-form .btn {
+  box-shadow: none;
+  background-color: #374850;
+  border: 1px solid transparent;
+  height: 35px;
+}
+.skin-empresa .sidebar-form input[type="text"] {
+  color: #666;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 2px;
+}
+.skin-empresa .sidebar-form input[type="text"]:focus,
+.skin-empresa .sidebar-form input[type="text"]:focus + .input-group-btn .btn {
+  background-color: #fff;
+  color: #666;
+}
+.skin-empresa .sidebar-form input[type="text"]:focus + .input-group-btn .btn {
+  border-left-color: #fff;
+}
+.skin-empresa .sidebar-form .btn {
+  color: #999;
+  border-top-left-radius: 0;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 0;
+}
+.skin-empresa.layout-top-nav .main-header > .logo {
+  background-color: #56C1AC;
+  color: #ffffff;
+  border-bottom: 0 solid transparent;
+}
+.skin-empresa.layout-top-nav .main-header > .logo:hover {
+  background-color: #82DAC9;
 }

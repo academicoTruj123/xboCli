@@ -16,9 +16,13 @@ class LoginAsset extends AssetBundle
             'plugins/iCheck/square/blue.css',                                      
             'plugins/iCheck/square/green.css',    
             'plugins/iCheck/square/pink.css', 
+            'bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css', 
+            'bower_components/select2/dist/css/select2.min.css', 
     ];
     public $js = [            
             'plugins/iCheck/icheck.min.js',   
+            'bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',  
+            'bower_components/select2/dist/js/select2.full.min.js',  
     ];
     public $depends = [            
     ];

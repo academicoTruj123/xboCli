@@ -17,9 +17,9 @@ $this->title = 'Pagina comercial';
                         <span class="caret"></span>                        
                       </button>                        
                             <ul class="dropdown-menu nav nav-pills nav-stacked" role="menu">
-                              <li><a href="#"><i class="fa fa-user"></i> como Cliente</a></li>                                
-                              <li><a href="#"><i class="fa fa-building"></i> como Empresa</a></li>                              
-                              <li><a href="#"><i class="fa fa-dashboard"></i> como Administrador</a></li>
+                              <li><a href="http://localhost:9091/login/cliente"><i class="fa fa-user"></i> como Cliente</a></li>                                
+                              <li><a href="http://localhost:9091/login/empresa"><i class="fa fa-building"></i> como Empresa</a></li>                              
+                              <li><a href="http://localhost:9091/login/administrador"><i class="fa fa-dashboard"></i> como Administrador</a></li>
                             </ul>                                                                                
                     </div>              
             </div>

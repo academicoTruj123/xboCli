@@ -30,6 +30,10 @@ class Usuario extends Model
     const STATUS_CUENTA_SUSPENDIDA = '0103';
     const STATUS_CUENTA_DESACTIVADA = '0104';
     
+    const ROL_CLIENTE = '0301';
+    const ROL_EMPRESA = '0302';
+    const ROL_ADMINISTRADOR = '0303';
+    
     public $intIdUsuario;
     public $vchCorreo;
     public $vchClave;
@@ -44,6 +48,8 @@ class Usuario extends Model
     public $intTipoLogin;
     public $intCodigoRol;
 
+    
+    private $urlapiLogin ='http://localhost:8099/loginrest';
 
     
     /**
@@ -90,7 +96,7 @@ class Usuario extends Model
         //llamada al servicio web
                     // ->REST
         $api = new RestClient([
-                'base_url' =>'http://localhost:8099/loginrest',
+                'base_url' =>$this->urlapiLogin,
                 'header' =>[
                 'Accept' => 'application/json'                    
                ]              

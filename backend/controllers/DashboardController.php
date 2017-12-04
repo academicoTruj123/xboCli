@@ -6,6 +6,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
+use backend\models\Usuario;
 
 
 class DashboardController extends Controller
@@ -54,14 +55,15 @@ class DashboardController extends Controller
 
     public function actionIndexcliente()
     {
-        
-        
+        $modeluser = new Usuario();
+        $modeluser =Yii::$app->session['ss_user'];                
         return $this->render('indexcliente');
     }
 
     public function actionIndexempresa()
     {
-        
+        $modeluser = new Usuario();
+        $modeluser =Yii::$app->session['ss_user']; 
         return $this->render('indexempresa');
     }    
 
