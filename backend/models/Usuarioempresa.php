@@ -57,7 +57,7 @@ class Usuarioempresa extends Model
     public $dtiFechaUltMod ;
 
     private $urlapiLogin ='http://localhost:8099/empresarest';
-    
+    //private $urlapiLogin ='';
     /**
      * @inheritdoc
      */
@@ -115,6 +115,7 @@ class Usuarioempresa extends Model
                 
         ]);     
          
+        //$result = $api->put('http://flowers.pe/expoapi/web/index.php?r=empresarest%2Fupdate&id='.$model->intIdUsuempresa, json_encode($model),array('Content-Type' => 'application/json'));
         $result = $api->put('/update/?id='.$model->intIdUsuempresa, json_encode($model),array('Content-Type' => 'application/json'));                            
         $model = new Usuarioempresa(); 
         //echo 'modelo update'; print_r($result);die;
@@ -130,7 +131,8 @@ class Usuarioempresa extends Model
                 'Accept' => 'application/json'                    
                ]              
                 
-        ]);                   
+        ]);
+        //$result = $api->get('http://flowers.pe/expoapi/web/index.php?r=empresarest%2Fview&id='.$id);
         $result = $api->get('/view/?id='.$id);                        
         $data = json_decode($result->response,true);
         $model = new Usuarioempresa(); 
@@ -147,7 +149,8 @@ class Usuarioempresa extends Model
                 'Accept' => 'application/json'                    
                ]              
                 
-        ]);            
+        ]); 
+        //$result = $api->post('http://flowers.pe/expoapi/web/index.php?r=empresarest%2Ffindusuarioempresaxiduser', json_encode($id),array('Content-Type' => 'application/json')); 
         $result = $api->post('/findusuarioempresaxiduser', json_encode($id),array('Content-Type' => 'application/json'));                                         
         //$data = json_decode($result->response,true);                         
         $model = new Usuarioempresa(); 

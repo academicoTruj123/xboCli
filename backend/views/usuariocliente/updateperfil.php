@@ -56,9 +56,12 @@ $this->registerJs($script);
 ?>
 <div class="usuariocliente-update">
  
+    <?= Yii::$app->session->getFlash('msg') ?> 
     <?php $form = ActiveForm::begin(['id' => 'usuariocliente-form']); ?>
 
+    
     <div class="row">
+        
         <div class="col-md-12">
           <!-- Custom Tabs -->
           <div class="nav-tabs-custom" id="idnavcustom-cliente">

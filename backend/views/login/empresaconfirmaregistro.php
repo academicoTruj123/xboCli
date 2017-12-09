@@ -43,6 +43,8 @@ $fieldOptions1 = [
                     <p class="login-box-msg no-margin no-padding"><br>Confirmar registro</p>
                     <div id="idfrmLogin" class="pad-all-40">
                         
+                        <?= Yii::$app->session->getFlash('msg') ?>   
+                        
         <?php $form = ActiveForm::begin(['id' => 'login-form', 'enableClientValidation' => false]); ?>
 
 
@@ -55,7 +57,7 @@ $fieldOptions1 = [
             ->label(false)
             ->textInput(['placeholder' => $model->getAttributeLabel('vchCodigoVer'),'maxlength' => true]) ?>
                                                 
-        <?= Html::submitButton('Confirmar', ['class' => 'btn btn-block btn-lg btn-primary btn-flat mar-top-20', 'name' => 'login-button']) ?>
+        <?= Html::submitButton('Confirmar', ['class' => 'btn btn-block btn-lg btn-personalizado-2 btn-flat mar-top-20', 'name' => 'login-button']) ?>
         
         <?php ActiveForm::end(); ?>
         </div>

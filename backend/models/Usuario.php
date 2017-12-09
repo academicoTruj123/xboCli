@@ -50,7 +50,7 @@ class Usuario extends Model
 
     
     private $urlapiLogin ='http://localhost:8099/loginrest';
-
+   // private $urlapiLogin ='';
     
     /**
      * @inheritdoc
@@ -105,8 +105,7 @@ class Usuario extends Model
        // echo print_r($model);die;
         //echo print_r(json_encode($model));die;        
         $result = $api->post('/registrarlogincliente', json_encode($model),array('Content-Type' => 'application/json'));    
-        
-        //$model = $result->decode_response(); 
+        //$result = $api->post('http://flowers.pe/expoapi/web/index.php?r=loginrest%2Fregistrarlogincliente', json_encode($model),array('Content-Type' => 'application/json'));        
         $responseapi =json_decode($result->response);
         $model=json_decode($result->response);
         echo print_r($result);die;
@@ -114,3 +113,4 @@ class Usuario extends Model
     }
     
 }
+

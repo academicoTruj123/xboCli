@@ -150,15 +150,32 @@ class UsuarioempresaController extends Controller
                 $model->vchDomicilioUbigeo = $this->getTextUbigeo($model->intIdUbigeo);
             }
             
-            $model->dtiFechaUltMod =date('Y-m-d H:i:s');
-            
-            
-            
+            $model->dtiFechaUltMod =date('Y-m-d H:i:s');                                    
             $model = $model->update($model);
-            if($model==null){                
-                throw new NotFoundHttpException('Error al actualizar el perfil de la empresa');
+            if($model==null){     
+                
+                Yii::$app->session->setFlash('msg', '
+                    <div class="alert alert-danger alert-dismissable text-center">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <h4><i class="icon fa fa-ban"></i> Aviso!</h4>
+                    <strong>No se pudo actualizar el perfil</strong></div>'
+                 ); 
+                // .$model->mensaje.
+                return $this->render('updateperfil', [
+                    'model' => $model,
+                ]); 
+                
+                //throw new NotFoundHttpException('Error al actualizar el perfil de la empresa');
             }else
-            {                              
+            {  
+                
+               Yii::$app->session->setFlash('msg', '
+                    <div class="alert alert-success alert-dismissable text-center">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <h4><i class="icon fa fa-check"></i> Aviso!</h4>
+                    <strong>Perfil actualizado correctamente.</strong></div>'
+                 );
+               
                 return $this->render('updateperfil', [
                     'model' => $model,
                 ]);

@@ -1,3 +1,7 @@
+<?php
+use yii\helpers\Html;
+use backend\models\Usuario;
+?>
 <aside class="main-sidebar">
 
     <section class="sidebar">
@@ -26,7 +30,50 @@
         </form>
         <!-- /.search form -->
 
-        <?= dmstr\widgets\Menu::widget(
+        
+        
+<?php 
+if (Yii::$app->session->get('ss_user')): 
+    $usersession = new Usuario(); 
+           $usersession =Yii::$app->session->get('ss_user');
+           switch($usersession->intCodigoRol) {
+               case 10:                    
+                dmstr\widgets\Menu::widget(
+                            [
+                                'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
+                                'items' => [
+                                    ['label' => 'Menu', 'options' => ['class' => 'header']],
+                                    ['label' => 'Mi perfil', 'icon' => 'file-code-o', 'url' => ['/usuariocliente/updateperfil']],                                    
+                                ],
+                            ]
+                        );                       
+               break;
+               case 11: 
+                dmstr\widgets\Menu::widget(
+                            [
+                                'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
+                                'items' => [
+                                    ['label' => 'Menu', 'options' => ['class' => 'header']],
+                                    ['label' => 'Mi perfil', 'icon' => 'file-code-o', 'url' => ['/usuarioempresa/updateperfil']],                                    
+                                ],
+                            ]
+                        );                     
+               break;
+               case 12: 
+                dmstr\widgets\Menu::widget(
+                            [
+                                'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
+                                'items' => [
+                                    ['label' => 'Menu', 'options' => ['class' => 'header']],                                                                        
+                                ],
+                            ]
+                        );                   
+               break;            
+               default :                    
+       }
+else:     
+    
+dmstr\widgets\Menu::widget(
             [
                 'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
                 'items' => [
@@ -62,8 +109,10 @@
                     ],
                 ],
             ]
-        ) ?>
+        );
         
+endif; ?>
+
         
     </section>
 

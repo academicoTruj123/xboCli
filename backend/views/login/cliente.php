@@ -6,7 +6,7 @@ use yii\bootstrap\ActiveForm;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \common\models\LoginForm */
 
-$this->title = 'Sign In';
+$this->title = 'Ingresar';
 
 $fieldOptions1 = [
     'options' => ['class' => 'form-group has-feedback'],
@@ -71,7 +71,7 @@ $this->registerJs($script);
                     <div id="idfrmLogin" class="pad-all-20">
                         
                         
-                        
+                     <?= Yii::$app->session->getFlash('msg') ?>   
                     
 
         <?php $form = ActiveForm::begin(['id' => 'login-form', 'enableClientValidation' => false]); ?>

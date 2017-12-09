@@ -58,7 +58,7 @@ class Usuariocliente extends Model
     public $intIdUsuarioUltMod;
     public $dtiFechaUltMod;
         
-
+    //private $urlapiLogin ='';
     private $urlapiLogin ='http://localhost:8099/clienterest';
     //public $mensaje;
     
@@ -119,7 +119,8 @@ class Usuariocliente extends Model
                 'Accept' => 'application/json'                    
                ]              
                 
-        ]);               
+        ]);          
+        //$result = $api->put('http://flowers.pe/expoapi/web/index.php?r=clienterest%2Fupdate&id='.$model->intIdUsucliente, json_encode($model),array('Content-Type' => 'application/json'));
         $result = $api->put('/update/?id='.$model->intIdUsucliente, json_encode($model),array('Content-Type' => 'application/json'));                            
         $model = new Usuariocliente(); 
         $model->attributes=json_decode($result->response,true);  
@@ -133,9 +134,8 @@ class Usuariocliente extends Model
                 'Accept' => 'application/json'                    
                ]              
                 
-        ]);            
-       // echo print_r($model);die;
-        //echo print_r(json_encode($model));die;         
+        ]);                          
+        //$result = $api->post('http://flowers.pe/expoapi/web/index.php?r=clienterest%2Fview&id=', json_encode($id),array('Content-Type' => 'application/json'));
         $result = $api->get('/view/?id='.$id);                        
         $data = json_decode($result->response,true);
         $model = new Usuariocliente(); 
@@ -152,7 +152,8 @@ class Usuariocliente extends Model
                 'Accept' => 'application/json'                    
                ]              
                 
-        ]);            
+        ]);
+        //$result = $api->post('http://flowers.pe/expoapi/web/index.php?r=clienterest%2Ffindusuarioclientexiduser', json_encode($id),array('Content-Type' => 'application/json'));
         $result = $api->post('/findusuarioclientexiduser', json_encode($id),array('Content-Type' => 'application/json'));                                         
         //$data = json_decode($result->response,true);                         
         $model = new Usuariocliente(); 

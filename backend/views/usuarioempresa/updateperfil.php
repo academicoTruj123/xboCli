@@ -55,6 +55,7 @@ $this->registerJs($script);
 
 ?>
 <div class="usuarioempresa-update">
+    <?= Yii::$app->session->getFlash('msg') ?>
  
     <?php $form = ActiveForm::begin(['id' => 'usuarioempresa-form']); ?>
 

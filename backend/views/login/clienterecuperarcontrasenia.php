@@ -59,7 +59,7 @@ $fieldOptions2 = [
                 <div class="login-box-body no-padding">
                     <p class="login-box-msg no-margin no-padding"><br>Recuperar password</p>
                     <div id="idfrmLogin" class="pad-all-20">
-                        
+                     <?= Yii::$app->session->getFlash('msg') ?>      
                         
                         
                     
@@ -77,7 +77,7 @@ $fieldOptions2 = [
             ->passwordInput(['placeholder' => 'Ingresar nuevo password']) ?>
 
         
-        <?= Html::submitButton('Recuperar', ['class' => 'btn btn-block btn-lg btn-primary btn-flat mar-top-20', 'name' => 'login-button']) ?>
+        <?= Html::submitButton('Recuperar', ['class' => 'btn btn-block btn-lg btn-personalizado-1 btn-flat mar-top-20', 'name' => 'login-button']) ?>
         
         <?php ActiveForm::end(); ?>
         </div>

@@ -30,6 +30,7 @@ class Ubigeo extends Model
     public $intNivel;
             
     private static $urlapiLogin ='http://localhost:8099/ubigeorest';
+    //private static $urlapiLogin ='';
 
     /**
      * @inheritdoc
@@ -63,7 +64,7 @@ class Ubigeo extends Model
     
     public static function getAll(){
         
-        //llamada al servicio web
+        //llamada al servicio web        
         $api = new RestClient([
                 'base_url' =>Ubigeo::$urlapiLogin,
                 'header' =>[
@@ -71,26 +72,9 @@ class Ubigeo extends Model
                ]              
                 
         ]);   
+        //$result =  $api->get('http://flowers.pe/expoapi/web/index.php?r=ubigeorest%2Findex'); 
         $result =  $api->get('/index'); 
         $model = $result->decode_response(true);
-        //$data = json_decode($result->response,true);                         
-//        $model = new Usuariocliente(); 
-//        $responseapi = new Reponseapi();
-//        $responseapi =json_decode($result->response,true);          
-//        //$model->attributes = $data;   
-//        $status=ArrayHelper::getValue($responseapi, 'status');
-//        if($status==true){
-//            $arrayatributo=ArrayHelper::getValue($responseapi, 'data');
-//            $model->attributes = $arrayatributo;                                                  
-//            //$model->attributes = $data;  
-//           // $this->mensaje='';
-//           // echo 'respuesta despues del registro ';print_r($modelusu);die;
-//        }else{
-//            $model=null;
-//            //$this->mensaje=$responseapi->data;           
-//        }  
-        
-        //echo 'lista ubigeo ';print_r($model);die();
          return $model;        
     }
     

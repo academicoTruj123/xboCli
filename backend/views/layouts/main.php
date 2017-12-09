@@ -117,19 +117,23 @@ if ((Yii::$app->controller->action->id === 'login')
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
     </head>
-    
-    
-    
-<?php if (Yii::$app->session->get('ss_user')): ?>
-   
+            
+<?php if (Yii::$app->session->get('ss_user')): ?>   
     <?php $usersession = new Usuario(); 
            $usersession =Yii::$app->session->get('ss_user');
-          // echo 'session';           print_r($usersession); die();
-           if ($usersession->intCodigoRol==10): ?>
-       <body class="hold-transition skin-cliente sidebar-mini">
-    <?php else: ?>
-        <body class="hold-transition skin-empresa sidebar-mini">
-    <?php endif; ?>
+           switch($usersession->intCodigoRol) {
+               case 10: ?>
+                    <body class="hold-transition skin-cliente sidebar-mini">
+    <?php            break;
+               case 11: ?>
+                    <body class="hold-transition skin-empresa sidebar-mini">
+    <?php            break;
+               case 12: ?>
+                    <body class="hold-transition skin-blue sidebar-mini">
+    <?php            break;            
+               default : ?>
+                    <body class="hold-transition skin-blue sidebar-mini">               
+    <?php       }?>
 <?php else: ?>
     <body class="hold-transition skin-blue sidebar-mini">
 <?php endif; ?>

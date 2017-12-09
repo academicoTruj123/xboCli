@@ -21,6 +21,7 @@ class UsuarioClienteReg extends Model
     public $intTipoLogin;   
     public $vchTipoLogin;  
     public $urlapiLogin ='http://localhost:8099/loginrest';
+    //public $urlapiLogin ='';
     public $mensaje='';
     
     const LOGIN_CUENTA_SISTEMA = '0201';
@@ -60,11 +61,15 @@ class UsuarioClienteReg extends Model
                 'header' =>[
                 'Accept' => 'application/json'                    
                ]                              
-        ]);                          
+        ]); 
+        //$result = $api->post('http://flowers.pe/expoapi/web/index.php?r=loginrest%2Fregistrarlogincliente', json_encode($model),array('Content-Type' => 'application/json'));
         $result = $api->post('/registrarlogincliente', json_encode($model),array('Content-Type' => 'application/json'));                         
         $modelusu = new Usuario(); 
         $responseapi = new Reponseapi();
         $responseapi =json_decode($result->response);                
+        
+         //echo 'respuesta despues del api';print_r($responseapi);die;
+        
         if($responseapi->status==true){
             $modelusu=$responseapi->data;
             $this->mensaje='';

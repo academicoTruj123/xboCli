@@ -16,6 +16,7 @@ class UsuarioempresaReg extends Model
     public $vchTipoLogin;
     
     public $urlapiLogin ='http://localhost:8099/loginrest';
+    //public $urlapiLogin ='';
     public $mensaje=''; 
     
     const LOGIN_CUENTA_SISTEMA = '0201';
@@ -57,7 +58,8 @@ class UsuarioempresaReg extends Model
                 'header' =>[
                 'Accept' => 'application/json'                    
                ]                              
-        ]);           
+        ]);   
+        //$result = $api->post('http://flowers.pe/expoapi/web/index.php?r=loginrest%2Fregistrarloginempresa', json_encode($model),array('Content-Type' => 'application/json')); 
         $result = $api->post('/registrarloginempresa', json_encode($model),array('Content-Type' => 'application/json'));                         
         $modelusu = new Usuario(); 
         $responseapi = new Reponseapi();

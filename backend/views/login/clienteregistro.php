@@ -6,7 +6,7 @@ use yii\bootstrap\ActiveForm;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \common\models\LoginForm */
 
-$this->title = 'Sign In';
+$this->title = 'Registrar';
 
 $fieldOptions1 = [
     'options' => ['class' => 'form-group has-feedback'],
@@ -78,7 +78,8 @@ $this->registerJs($script);
 
                 <div class="login-box-body no-padding">
                     <p class="login-box-msg no-margin no-padding"><br>Registrar Cliente</p>
-                    <div id="idfrmLogin" class="pad-all-20">                                                                                            
+                    <div id="idfrmLogin" class="pad-all-20">     
+                        <?= Yii::$app->session->getFlash('msg') ?>   
                                                 
     <?php $form = ActiveForm::begin(['id' => 'login-registro-form', 'enableClientValidation' => false]); ?>
                             
@@ -98,7 +99,7 @@ $this->registerJs($script);
             ->passwordInput(['placeholder' => $model->getAttributeLabel('vchClave'),'maxlength' => true]) ?>  
                             
     <div class="form-group">        
-        <?= Html::submitButton('Registrar', ['class' => 'btn btn-block btn-lg btn-primary btn-flat mar-top-20', 'name' => 'login-registro-button']) ?>
+        <?= Html::submitButton('Registrar', ['class' => 'btn btn-block btn-lg btn-personalizado-1 btn-flat mar-top-20', 'name' => 'login-registro-button']) ?>
     </div>
 
     <?php ActiveForm::end();?>

@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 /* @var $this yii\web\View */
 
-$this->title = 'dashboardcliente';
+$this->title = 'Cliente';
 ?>
 <div class="site-index">
 

@@ -21,6 +21,7 @@ class UsuarioClienteRegConf extends Model
     public $vchCodigoVerUsu;
     public $vchCorreo;    
 
+    //public $urlapiLogin ='';
     public $urlapiLogin ='http://localhost:8099/loginrest';
     public $mensaje='';
     
@@ -54,7 +55,8 @@ class UsuarioClienteRegConf extends Model
                 'header' =>[
                 'Accept' => 'application/json'                    
                ]                              
-        ]);                          
+        ]); 
+        //$result = $api->post('http://flowers.pe/expoapi/web/index.php?r=loginrest%2Factivarcuenta', json_encode($idUsuario),array('Content-Type' => 'application/json')); 
         $result = $api->post('/activarcuenta', json_encode($idUsuario),array('Content-Type' => 'application/json'));                                 
         $modelusu = new Usuario(); 
         $responseapi = new Reponseapi();

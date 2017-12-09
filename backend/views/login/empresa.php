@@ -62,7 +62,7 @@ $this->registerJs($script);
                         
                         
                         
-                    
+                    <?= Yii::$app->session->getFlash('msg') ?>  
 
         <?php $form = ActiveForm::begin(['id' => 'login-form', 'enableClientValidation' => false]); ?>
 

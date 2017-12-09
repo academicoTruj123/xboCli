@@ -66,12 +66,25 @@ class LoginController extends Controller{
         $model->vchTipoLogin=UsuarioClienteReg::LOGIN_CUENTA_FACEBOOK;        
         $modelUser = new Usuario();
         $modelUser =  $model->registrar($model);            
+        
+        
         if($modelUser != null){  
               Yii::$app->session['ss_user'] =$modelUser;
               return $this->redirect(\Yii::$app->urlManager->createUrl("dashboard/indexcliente"));                     
               
         }else{
-              echo 'No se puede ingresar al sistema con la cuenta de facebook.Intentarlo nuevamente!!'; die();  
+              
+              
+                   Yii::$app->session->setFlash('msg', '
+                        <div class="alert alert-danger alert-dismissable text-center">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        <h4><i class="icon fa fa-ban"></i> Aviso!</h4>
+                        <strong>No se puede ingresar al sistema con la cuenta de facebook.Intentarlo nuevamente!</strong></div>'
+                     );                 
+                            return $this->render('cliente', [
+                    'model' => $model,
+                ]); 
+                    
         }                     
     }
     
@@ -96,7 +109,15 @@ class LoginController extends Controller{
              return $this->redirect(\Yii::$app->urlManager->createUrl("dashboard/indexempresa"));
              
         }else{
-              echo 'No se puede ingresar al sistema con la cuenta de facebook.Intentarlo nuevamente!!'; die();  
+             Yii::$app->session->setFlash('msg', '
+                        <div class="alert alert-danger alert-dismissable text-center">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        <h4><i class="icon fa fa-ban"></i> Aviso!</h4>
+                        <strong>No se puede ingresar al sistema con la cuenta de facebook.Intentarlo nuevamente!</strong></div>'
+                     );                 
+            return $this->render('cliente', [
+                    'model' => $model,
+                ]);             
         }
     }
     
@@ -111,8 +132,17 @@ class LoginController extends Controller{
         if ($model->load(Yii::$app->request->post()) && $model->validate() ) {                                     
             $modelUser =  $model->login($model);
             if( $modelUser== null)
-            {
-                echo "login incorrecto " .$model->mensaje;                
+            {                                                       
+                Yii::$app->session->setFlash('msg', '
+                    <div class="alert alert-danger alert-dismissable text-center">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <h4><i class="icon fa fa-ban"></i> Aviso!</h4>
+                    <strong>Credenciales incorrectas</strong></div>'
+                 ); 
+                // .$model->mensaje.
+                return $this->render('cliente', [
+                    'model' => $model,
+                ]);                
             }else{   
                $codigoestadocuenta= $modeltablacodigo->getCodigo($modelUser->intCodigoEstado);               
                 if($codigoestadocuenta == Usuario::STATUS_CUENTA_ACTIVADA){
@@ -121,18 +151,15 @@ class LoginController extends Controller{
                 }
                 if( $codigoestadocuenta == Usuario::STATUS_PENDIENTE_ACTIVACION){                   
                         
-                          $model = new UsuarioClienteRegConf();
+                            $model = new UsuarioClienteRegConf();
                             $model->intIdUsuario=$modelUser->intIdUsuario;
                             $model->vchCorreo=$modelUser->vchCorreo;
                             $model->vchCodigoVerUsu=$modelUser->vchCodVerificacion;                                                                    
                            return $this->redirect(['clienteconfirmaregistro', 'model' => $model]);
                 }
                                
-                        echo "login correcto-cuenta otro esatdo de cuenta no administrada";
-                        return true;
-               
-                
-                
+//                        echo "login correcto-cuenta otro esatdo de cuenta no administrada";
+//                        return true;                                               
             }                                
         } else {
             return $this->render('cliente', [
@@ -169,7 +196,17 @@ class LoginController extends Controller{
             $modelUser =  $model->login($model);
             if( $modelUser== null)
             {
-                echo "login incorrecto " .$model->mensaje;                
+                Yii::$app->session->setFlash('msg', '
+                    <div class="alert alert-danger alert-dismissable text-center">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <h4><i class="icon fa fa-ban"></i> Aviso!</h4>
+                    <strong>Credenciales incorrectas</strong></div>'
+                 ); 
+                // .$model->mensaje.
+                return $this->render('empresa', [
+                    'model' => $model,
+                ]); 
+                
             }else{   
                $codigoestadocuenta= $modeltablacodigo->getCodigo($modelUser->intCodigoEstado);               
                 if($codigoestadocuenta == Usuario::STATUS_CUENTA_ACTIVADA){    
@@ -184,9 +221,9 @@ class LoginController extends Controller{
                             $model->vchCodigoVerUsu=$modelUser->vchCodVerificacion;                                                                    
                            return $this->redirect(['empresaconfirmaregistro', 'model' => $model]);
                 }
-                               
-                        echo "login correcto-cuenta otro estado de cuenta no administrada";
-                        return true;                                               
+//                               
+//                        echo "login correcto-cuenta otro estado de cuenta no administrada";
+//                        return true;                                               
             }                                
         } else {
             return $this->render('empresa', [
@@ -207,8 +244,18 @@ class LoginController extends Controller{
         if ($model->load(Yii::$app->request->post()) && $model->validate() ) {                                     
             $modelUser =  $model->login($model);
             if( $modelUser== null)
-            {                
-                echo "login error -admin".$model->mensaje;                
+            {     
+                
+                Yii::$app->session->setFlash('msg', '
+                    <div class="alert alert-danger alert-dismissable text-center">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <h4><i class="icon fa fa-ban"></i> Aviso!</h4>
+                    <strong>Credenciales incorrectas</strong></div>'
+                 );                 
+                return $this->render('administrador', [
+                    'model' => $model,
+                ]); 
+              
             }else{
                 Yii::$app->session['ss_user'] =$modelUser;
                 return  Yii::$app->runAction('dashboard/indexadministrador');   
@@ -231,10 +278,18 @@ class LoginController extends Controller{
             if($modelusu != null){                    
                   $modelconfusu->intIdUsuario=$modelusu->intIdUsuario;
                   $modelconfusu->vchCodigoVerUsu=$modelusu->vchCodVerificacion;                  
-                  $modelconfusu->vchCorreo=$modelusu->vchCorreo;                                    
+                  $modelconfusu->vchCorreo=$modelusu->vchCorreo;                                                         
                  return $this->redirect(['clienteconfirmaregistro', 'model' => $modelconfusu]);
-           }else{
-                
+           }else{               
+                Yii::$app->session->setFlash('msg', '
+                    <div class="alert alert-danger alert-dismissable text-center">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <h4><i class="icon fa fa-ban"></i> Aviso!</h4>
+                    <strong>No se pudo realizar el registro</strong>'.$model->mensaje.'</div>'
+                 );                 
+                return $this->render('clienteregistro', [
+                    'model' => $model,
+                ]);                 
             }                                
         } else {           
             return $this->render('clienteregistro', [
@@ -242,8 +297,7 @@ class LoginController extends Controller{
             ]);
         }                       
     }
-    
-    
+        
     public function actionClienteconfirmaregistro(){                             
        if(Yii::$app->request->post()){            
            $model = new UsuarioClienteRegConf();
@@ -252,19 +306,39 @@ class LoginController extends Controller{
               if($model->vchCodigoVer == $model->vchCodigoVerUsu  ){  
                  $modelusu= $model->activarcuenta($model->intIdUsuario);                                                   
                  if($modelusu == null){
-                     echo "confirmacion incorrecta,cuenta no se puede activar" ; die();  
-                 }else{                     
+                     
+                    Yii::$app->session->setFlash('msg', '
+                        <div class="alert alert-danger alert-dismissable text-center">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        <h4><i class="icon fa fa-ban"></i> Aviso!</h4>
+                        <strong>Confirmacion incorrecta,cuenta no se puede activar</strong>'.$model->mensaje.'</div>'
+                     );                 
+                    return $this->render('clienteconfirmaregistro', [
+                        'model' => $model,
+                    ]);  
+
+                 }else{
+
                   $model = new LoginForm();
-                  return $this->render('cliente', [
-                            'model' => $model,
-                    ]);                     
-                 }
-                 
+                  return $this->redirect(['cliente', 'model' => $model]);                     
+                    
+                 }                
                     
               }else{
-                  echo "confirmacion incorrecta" ; die();                 
+                    
+                  
+                    Yii::$app->session->setFlash('msg', '
+                        <div class="alert alert-danger alert-dismissable text-center">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        <h4><i class="icon fa fa-ban"></i> Aviso!</h4>
+                        <strong>No se puede realizar la confirmacion</strong></div>'
+                     );                 
+                    return $this->render('clienteconfirmaregistro', [
+                        'model' => $model,
+                    ]);  
+                    
               }
-         } else {                  
+         } else {               
              return $this->render('clienteconfirmaregistro', [
                  'model' => $model                
              ]);
@@ -281,8 +355,7 @@ class LoginController extends Controller{
           ]);           
        }             
     }
-    
-    
+        
     public function actionClienterecuperarcontrasenia(){
         $model = new LoginForm();       
         $modelusu = new Usuario();        //
@@ -292,8 +365,16 @@ class LoginController extends Controller{
                   $model = new LoginForm();
                  return $this->redirect(['cliente', 'model' => $model]);
            }else{
-                echo  "error al recuperar contrasenia";
-                return true;
+               
+                    Yii::$app->session->setFlash('msg', '
+                        <div class="alert alert-danger alert-dismissable text-center">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        <h4><i class="icon fa fa-ban"></i> Aviso!</h4>
+                        <strong>No se puede recuperar el password</strong></div>'
+                     );                 
+                    return $this->render('clienterecuperarcontrasenia', [
+                        'model' => $model,
+                    ]);  
             }                                
         } else {           
             return $this->render('clienterecuperarcontrasenia', [
@@ -314,7 +395,15 @@ class LoginController extends Controller{
                   $modelconfusu->vchCorreo=$modelusu->vchCorreo;                                    
                  return $this->redirect(['empresaconfirmaregistro', 'model' => $modelconfusu]);
            }else{
-                
+                Yii::$app->session->setFlash('msg', '
+                    <div class="alert alert-danger alert-dismissable text-center">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <h4><i class="icon fa fa-ban"></i> Aviso!</h4>
+                    <strong>No se pudo realizar el registro</strong>'.$model->mensaje.'</div>'
+                 );                 
+                return $this->render('empresaregistro', [
+                    'model' => $model,
+                ]);                 
             }                                
         } else {           
             return $this->render('empresaregistro', [
@@ -331,15 +420,36 @@ class LoginController extends Controller{
               if($model->vchCodigoVer == $model->vchCodigoVerUsu  ){  
                  $modelusu= $model->activarcuenta($model->intIdUsuario);                                                   
                  if($modelusu == null){
-                     echo "confirmacion incorrecta,cuenta no se puede activar" ; die();  
-                 }else{                     
+                      
+                    Yii::$app->session->setFlash('msg', '
+                        <div class="alert alert-danger alert-dismissable text-center">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        <h4><i class="icon fa fa-ban"></i> Aviso!</h4>
+                        <strong>Confirmacion incorrecta,cuenta no se puede activar</strong>'.$model->mensaje.'</div>'
+                     );                 
+                    return $this->render('empresaconfirmaregistro', [
+                        'model' => $model,
+                    ]); 
+                    
+                 }else{ 
+                     
+                     
                   $model = new LoginForm();
-                  return $this->render('empresa', [
-                            'model' => $model,
-                    ]);                     
+                  return $this->redirect(['empresa', 'model' => $model]);
+                     
+                  
                  }                                     
               }else{
-                  echo "confirmacion incorrecta" ; die();                 
+                  
+                    Yii::$app->session->setFlash('msg', '
+                        <div class="alert alert-danger alert-dismissable text-center">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        <h4><i class="icon fa fa-ban"></i> Aviso!</h4>
+                        <strong>No se puede realizar la confirmacion</strong></div>'
+                     );                 
+                    return $this->render('empresaconfirmaregistro', [
+                        'model' => $model,
+                    ]);                                                      
               }
          } else {                  
              return $this->render('empresaconfirmaregistro', [
@@ -367,8 +477,16 @@ class LoginController extends Controller{
                   $model = new LoginForm();
                  return $this->redirect(['empresa', 'model' => $model]);
            }else{
-                echo  "error al recuperar contrasenia";
-                return true;
+               
+                   Yii::$app->session->setFlash('msg', '
+                        <div class="alert alert-danger alert-dismissable text-center">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        <h4><i class="icon fa fa-ban"></i> Aviso!</h4>
+                        <strong>No se puede recuperar el password</strong></div>'
+                     );                 
+                    return $this->render('empresarecuperarcontrasenia', [
+                        'model' => $model,
+                    ]);                      
             }                                
         } else {           
             return $this->render('empresarecuperarcontrasenia', [
