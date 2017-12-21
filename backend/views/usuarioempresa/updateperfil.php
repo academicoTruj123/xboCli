@@ -9,19 +9,21 @@ use backend\models\Ubigeo;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model backend\models\usuarioempresa */
 
-$this->title = 'Mi Perfil';
+$this->title = 'Mis Datos';
 $this->params['breadcrumbs'][] = ['label' => 'Usuarioempresa', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->intIdUsuempresa, 'url' => ['view', 'id' => $model->intIdUsuempresa]];
 $this->params['breadcrumbs'][] = 'Datos';
 
 $fieldOptions1 = [
     'options' => ['class' => 'form-group has-feedback'],
-    'inputTemplate' => "{input}"
+    'inputTemplate' => "{input}",
+    'labelOptions' => [ 'class' => 'label-input-text' ]
 ];
 
 $fieldOptionsdpck = [
     'options' => ['tag' => null],
-    'inputTemplate' => "{input}"
+    'inputTemplate' => "{input}",
+    'labelOptions' => [ 'class' => 'label-input-text' ]
 ];
 
 
@@ -40,10 +42,11 @@ $script = <<< JS
       increaseArea: '10%' 
     });
         
-    //Date picker
+    //Date picker      
     $('#datepicker').datepicker({
-      autoclose: true
-    });  
+        autoclose: true,
+        format: 'yyyy-mm-dd'
+    });          
         
     $('.select2').select2();
         
@@ -73,26 +76,27 @@ $this->registerJs($script);
               <div class="tab-pane active" id="tab_1">
                   
                 <?= $form->field($model, 'vchRazonSocial', $fieldOptions1)
-                        ->label(false)
-                        ->textInput(['placeholder' => $model->getAttributeLabel('vchRazonSocial'),'maxlength' => true]) ?>
+                        ->label(true)
+                        ->textInput(['placeholder' => 'Ingresar '.$model->getAttributeLabel('vchRazonSocial'),'maxlength' => true]) ?>
 
                 <?= $form->field($model, 'vchRuc', $fieldOptions1)
-                        ->label(false)
-                        ->textInput(['placeholder' => $model->getAttributeLabel('vchRuc'),'maxlength' => true]) ?>
+                        ->label(true)
+                        ->textInput(['placeholder' => 'Ingresar '.$model->getAttributeLabel('vchRuc'),'maxlength' => true]) ?>
 
                 <?= $form->field($model, 'vchNombreComercial', $fieldOptions1)
-                        ->label(false)
-                        ->textInput(['placeholder' => $model->getAttributeLabel('vchNombreComercial'),'maxlength' => true]) ?>
+                        ->label(true)
+                        ->textInput(['placeholder' => 'Ingresar '.$model->getAttributeLabel('vchNombreComercial'),'maxlength' => true]) ?>
 
                 
-                <div class="form-group">              
+                <div class="form-group">    
+                  <label class="label-input-text"><?= $model->getAttributeLabel('dtmFechaCreacion') ?></label>
                   <div class="input-group date">
                     <div class="input-group-addon">
                       <i class="fa fa-calendar"></i>
                     </div>                                  
                    <?= $form->field($model, 'dtmFechaCreacion',$fieldOptionsdpck)
                           ->label(false)
-                          ->textInput(['placeholder' => $model->getAttributeLabel('dtmFechaCreacion'),'class' => 'form-control pull-right','id'=>'datepicker']) ?>                  
+                          ->textInput(['placeholder' => 'Ingresar '.$model->getAttributeLabel('dtmFechaCreacion'),'class' => 'form-control pull-right','id'=>'datepicker']) ?>                  
                   </div>                
                 </div>
                                                                                                                                                              
@@ -102,7 +106,7 @@ $this->registerJs($script);
                         
                       
               <?= $form->field($model, 'intIdUbigeo', $fieldOptions1)
-                        ->label(false)
+                        ->label(true)
                         ->dropDownList(
                                 ArrayHelper::map(Ubigeo::getAll(),'intIdubigeo','vchUbigeo'),
                                 [   
@@ -114,8 +118,8 @@ $this->registerJs($script);
               ?>
                   
                 <?= $form->field($model, 'vchDomicilioDireccion', $fieldOptions1)
-                        ->label(false)
-                        ->textInput(['placeholder' => $model->getAttributeLabel('vchDomicilioDireccion'),'maxlength' => true]) ?>
+                        ->label(true)
+                        ->textInput(['placeholder' => 'Ingresar '.$model->getAttributeLabel('vchDomicilioDireccion'),'maxlength' => true]) ?>
 
    
                   
@@ -124,22 +128,22 @@ $this->registerJs($script);
               <div class="tab-pane" id="tab_3">
   
                 <?= $form->field($model, 'vchCelular', $fieldOptions1)
-                        ->label(false)
-                        ->textInput(['placeholder' => $model->getAttributeLabel('vchCelular'),'maxlength' => true]) ?>
+                        ->label(true)
+                        ->textInput(['placeholder' => 'Ingresar '.$model->getAttributeLabel('vchCelular'),'maxlength' => true]) ?>
 
 
                 <?= $form->field($model, 'vchTelefonoFijo', $fieldOptions1)
-                        ->label(false)
-                        ->textInput(['placeholder' => $model->getAttributeLabel('vchTelefonoFijo'),'maxlength' => true]) ?>
+                        ->label(true)
+                        ->textInput(['placeholder' => 'Ingresar '.$model->getAttributeLabel('vchTelefonoFijo'),'maxlength' => true]) ?>
 
               
                 <?= $form->field($model, 'vchContacto', $fieldOptions1)
-                        ->label(false)
-                        ->textInput(['placeholder' => $model->getAttributeLabel('vchContacto'),'maxlength' => true]) ?>
+                        ->label(true)
+                        ->textInput(['placeholder' => 'Ingresar '.$model->getAttributeLabel('vchContacto'),'maxlength' => true]) ?>
 
                 <?= $form->field($model, 'vchContactoCorreo', $fieldOptions1)
-                        ->label(false)
-                        ->textInput(['placeholder' => $model->getAttributeLabel('vchContactoCorreo'),'maxlength' => true]) ?>
+                        ->label(true)
+                        ->textInput(['placeholder' => 'Ingresar '.$model->getAttributeLabel('vchContactoCorreo'),'maxlength' => true]) ?>
                                                       
               </div>
               <!-- /.tab-pane -->

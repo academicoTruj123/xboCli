@@ -6,7 +6,7 @@ use yii\bootstrap\ActiveForm;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \common\models\LoginForm */
 
-$this->title = 'Recuperar Password';
+$this->title = 'Restaurar Password';
 
 $fieldOptions1 = [
     'options' => ['class' => 'form-group has-feedback'],
@@ -18,7 +18,14 @@ $fieldOptions2 = [
     'inputTemplate' => "{input}<span class='glyphicon glyphicon-lock form-control-feedback'></span>"
 ];
 
-
+$js = <<< 'SCRIPT'
+/* To initialize BS3 tooltips set this below */
+$(function () { 
+    $("[data-toggle='tooltip']").tooltip(); 
+});
+SCRIPT;
+// Register tooltip/popover initialization javascript
+$this->registerJs($js);
 
 ?>
 
@@ -47,7 +54,9 @@ $fieldOptions2 = [
 <div class="login-page-empresa-content">
 
     <div class="login-box-body no-padding">
-                    <p class="login-box-msg no-margin no-padding"><br>Recuperar password</p>
+                    <p class="login-box-msg no-margin no-padding">                        
+                        <br>Restaurar password  <span data-toggle="tooltip" data-title="Se restaurará con una contraseña generada por nosotros, y se lo enviaremos por correo." class='glyphicon glyphicon-info-sign'></span>
+                    </p>
                     <div id="idfrmLogin" class="pad-all-40">
                         
                         
@@ -61,12 +70,8 @@ $fieldOptions2 = [
             ->label(false)
             ->textInput(['placeholder' => $model->getAttributeLabel('email')]) ?>
 
-        <?= $form
-            ->field($model, 'password', $fieldOptions2)
-            ->label(false)
-            ->passwordInput(['placeholder' => 'Ingresar nuevo password']) ?>
         
-        <?= Html::submitButton('Recuperar', ['class' => 'btn btn-block btn-lg btn-personalizado-2 btn-flat mar-top-20', 'name' => 'login-button']) ?>
+        <?= Html::submitButton('Restaurar', ['class' => 'btn btn-block btn-lg btn-personalizado-2 btn-flat mar-top-20', 'name' => 'login-button']) ?>
         
         <?php ActiveForm::end(); ?>
         </div>

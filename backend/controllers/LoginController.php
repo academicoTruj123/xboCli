@@ -129,8 +129,10 @@ class LoginController extends Controller{
         $modeltablacodigo = new Tablacodigo();
         $model = new LoginForm();
         $modelUser = new Usuario();
+        $model->vchTipoUsuario = $modelUser::TIPO_CLIENTE;
         if ($model->load(Yii::$app->request->post()) && $model->validate() ) {                                     
             $modelUser =  $model->login($model);
+            
             if( $modelUser== null)
             {                                                       
                 Yii::$app->session->setFlash('msg', '
@@ -144,7 +146,8 @@ class LoginController extends Controller{
                     'model' => $model,
                 ]);                
             }else{   
-               $codigoestadocuenta= $modeltablacodigo->getCodigo($modelUser->intCodigoEstado);               
+               $codigoestadocuenta= $modeltablacodigo->getCodigo($modelUser->intCodigoEstado);  
+               
                 if($codigoestadocuenta == Usuario::STATUS_CUENTA_ACTIVADA){
                         Yii::$app->session['ss_user'] =$modelUser;
                         return  Yii::$app->runAction('dashboard/indexcliente');                        
@@ -157,17 +160,38 @@ class LoginController extends Controller{
                             $model->vchCodigoVerUsu=$modelUser->vchCodVerificacion;                                                                    
                            return $this->redirect(['clienteconfirmaregistro', 'model' => $model]);
                 }
+                if($codigoestadocuenta == Usuario::STATUS_CUENTA_DESACTIVADA){
+
+                Yii::$app->session->setFlash('msg', '
+                    <div class="alert alert-danger alert-dismissable text-center">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <h4><i class="icon fa fa-ban"></i> Aviso!</h4>
+                    <strong>Credenciales incorrectas</strong></div>'
+                 ); 
+                                    
+                    $model = new LoginForm();
+                    return $this->render('cliente', [
+                            'model' => $model,
+                            ]);                       
+                }                
                                
 //                        echo "login correcto-cuenta otro esatdo de cuenta no administrada";
 //                        return true;                                               
             }                                
         } else {
+            
             return $this->render('cliente', [
                 'model' => $model,
             ]);
         }
     }    
 
+    public function actionClientelogout(){
+        //matar las sessiones
+        Yii::$app->session['ss_user'] =null;
+        return Yii::$app->getResponse()->redirect('cliente');        
+    }
+       
     public function actionEmpresa2()
     {
         if (!Yii::$app->user->isGuest) {
@@ -192,6 +216,7 @@ class LoginController extends Controller{
         $modeltablacodigo = new Tablacodigo();
         $model = new LoginForm();
         $modelUser = new Usuario();
+        $model->vchTipoUsuario = $modelUser::TIPO_EMPRESA;
         if ($model->load(Yii::$app->request->post()) && $model->validate() ) {                                     
             $modelUser =  $model->login($model);
             if( $modelUser== null)
@@ -221,6 +246,22 @@ class LoginController extends Controller{
                             $model->vchCodigoVerUsu=$modelUser->vchCodVerificacion;                                                                    
                            return $this->redirect(['empresaconfirmaregistro', 'model' => $model]);
                 }
+                
+                if($codigoestadocuenta == Usuario::STATUS_CUENTA_DESACTIVADA){
+
+                Yii::$app->session->setFlash('msg', '
+                    <div class="alert alert-danger alert-dismissable text-center">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <h4><i class="icon fa fa-ban"></i> Aviso!</h4>
+                    <strong>Credenciales incorrectas</strong></div>'
+                 ); 
+                                    
+                    $model = new LoginForm();
+                    return $this->render('empresa', [
+                            'model' => $model,
+                            ]);                       
+                }  
+                
 //                               
 //                        echo "login correcto-cuenta otro estado de cuenta no administrada";
 //                        return true;                                               
@@ -232,6 +273,11 @@ class LoginController extends Controller{
         }
     }  
 
+    public function actionEmpresalogout(){
+        //matar las sessiones
+        Yii::$app->session['ss_user'] =null;
+        return Yii::$app->getResponse()->redirect('empresa');
+    }
     
     public function actionAdministrador()
     {
@@ -241,6 +287,7 @@ class LoginController extends Controller{
        // }
         $model = new LoginForm();
         $modelUser = new Usuario();
+        $model->vchTipoUsuario = $modelUser::TIPO_ADMINISTRADOR;
         if ($model->load(Yii::$app->request->post()) && $model->validate() ) {                                     
             $modelUser =  $model->login($model);
             if( $modelUser== null)
@@ -268,6 +315,11 @@ class LoginController extends Controller{
         
     }     
     
+    public function actionAdministradorlogout(){
+        //matar las sessiones
+        Yii::$app->session['ss_user'] =null;                
+        return Yii::$app->getResponse()->redirect('empresa');
+    }
     
     public function actionClienteregistro(){                 
         $model = new UsuarioClienteReg();       
@@ -359,23 +411,33 @@ class LoginController extends Controller{
     public function actionClienterecuperarcontrasenia(){
         $model = new LoginForm();       
         $modelusu = new Usuario();        //
-        if ($model->load(Yii::$app->request->post()) && $model->validate()  ) {                       
-            $modelusu = $model->recuperarcontrasenia($model);
-            if($modelusu != null){                    
-                  $model = new LoginForm();
-                 return $this->redirect(['cliente', 'model' => $model]);
-           }else{
-               
-                    Yii::$app->session->setFlash('msg', '
-                        <div class="alert alert-danger alert-dismissable text-center">
-                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                        <h4><i class="icon fa fa-ban"></i> Aviso!</h4>
-                        <strong>No se puede recuperar el password</strong></div>'
-                     );                 
-                    return $this->render('clienterecuperarcontrasenia', [
-                        'model' => $model,
-                    ]);  
-            }                                
+        if (Yii::$app->request->post()) {  
+            $model->getGeneratedPassRecuperacion();            
+            if($model->load(Yii::$app->request->post()) && $model->validate() ){                              
+                $modelusu = $model->recuperarcontrasenia($model);
+                if($modelusu != null){                    
+                      $model = new LoginForm();
+                     return $this->redirect(['cliente', 'model' => $model]);
+               }else{
+
+                        Yii::$app->session->setFlash('msg', '
+                            <div class="alert alert-danger alert-dismissable text-center">
+                            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                            <h4><i class="icon fa fa-ban"></i> Aviso!</h4>
+                            <strong>No se puede restaurar el password</strong></div>'
+                         );                 
+                        return $this->render('clienterecuperarcontrasenia', [
+                            'model' => $model,
+                        ]);  
+                }            
+            }else
+            {
+                
+                return $this->render('clienterecuperarcontrasenia', [
+                'model' => $model                
+                 ]);  
+            }
+            
         } else {           
             return $this->render('clienterecuperarcontrasenia', [
                 'model' => $model                
@@ -470,7 +532,9 @@ class LoginController extends Controller{
                           
     public function actionEmpresarecuperarcontrasenia(){
         $model = new LoginForm();       
-        $modelusu = new Usuario();        //
+        $modelusu = new Usuario();        //                
+        if(Yii::$app->request->post()){
+            $model->getGeneratedPassRecuperacion(); 
         if ($model->load(Yii::$app->request->post()) && $model->validate()  ) {                       
             $modelusu = $model->recuperarcontrasenia($model);
             if($modelusu != null){                    
@@ -482,7 +546,7 @@ class LoginController extends Controller{
                         <div class="alert alert-danger alert-dismissable text-center">
                         <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
                         <h4><i class="icon fa fa-ban"></i> Aviso!</h4>
-                        <strong>No se puede recuperar el password</strong></div>'
+                        <strong>No se puede restaurar el password</strong></div>'
                      );                 
                     return $this->render('empresarecuperarcontrasenia', [
                         'model' => $model,
@@ -492,7 +556,15 @@ class LoginController extends Controller{
             return $this->render('empresarecuperarcontrasenia', [
                 'model' => $model                
             ]);
-        } 
+        }
+        
+        }else{
+              return $this->render('empresarecuperarcontrasenia', [
+                'model' => $model                
+            ]);
+        }
+        
+ 
     }
     
 }

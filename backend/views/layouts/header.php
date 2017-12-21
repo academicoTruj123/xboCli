@@ -1,6 +1,6 @@
 <?php
 use yii\helpers\Html;
-
+use backend\models\Usuario;
 /* @var $this \yii\web\View */
 /* @var $content string */
 ?>
@@ -230,7 +230,16 @@ use yii\helpers\Html;
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
-                        <span class="hidden-xs">Christian Albujar</span>
+                        <span class="hidden-xs">                                                                                    
+                        <?php 
+                        if (Yii::$app->session->get('ss_user')): 
+                            $usersession = new Usuario(); 
+                            $usersession =Yii::$app->session->get('ss_user');           
+                            echo $usersession->vchCorreo;
+                        else:     
+                            echo  'No disponible';        
+                        endif; ?>                        
+                        </span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
@@ -261,11 +270,47 @@ use yii\helpers\Html;
                                 <a href="#" class="btn btn-default btn-flat">Profile</a>
                             </div>
                             <div class="pull-right">
-                                <?= Html::a(
-                                    'Sign out',
+
+                                
+                                
+<?php 
+if (Yii::$app->session->get('ss_user')): 
+    $usersession = new Usuario(); 
+    $usersession =Yii::$app->session->get('ss_user');           
+           switch($usersession->intCodigoRol) {
+               case 10:                                   
+                   echo Html::a(
+                                    'Salir',
+                                    ['/login/clientelogout'],
+                                    ['data-method' => 'post', 'class' => 'btn btn-default btn-flat']
+                                ); 
+               break; 
+               case 11:
+                   echo Html::a(
+                                    'Salir',
+                                    ['/login/empresalogout'],
+                                    ['data-method' => 'post', 'class' => 'btn btn-default btn-flat']
+                                );                                                       
+               break;
+               case 12:                    
+                   echo Html::a(
+                                    'Salir',
+                                    ['/login/administradorlogout'],
+                                    ['data-method' => 'post', 'class' => 'btn btn-default btn-flat']
+                                );                     
+               break;            
+               default :                    
+               break;
+       }
+else:     
+                               echo Html::a(
+                                    'Salir',
                                     ['/site/logout'],
                                     ['data-method' => 'post', 'class' => 'btn btn-default btn-flat']
-                                ) ?>
+                                );   
+        
+endif; ?>
+                                
                             </div>
                         </li>
                     </ul>

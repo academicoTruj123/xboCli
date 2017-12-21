@@ -4,7 +4,7 @@ use Yii;
 use common\models\LoginForm;
 use common\models\Tablacodigo;
 use backend\models\Usuario;
-use backend\models\usuariocliente;
+use backend\models\Usuariocliente;
 use backend\models\Ubigeo;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
@@ -129,7 +129,7 @@ class UsuarioclienteController extends Controller
         
         $modeluser = new Usuario();
         $modeluser =Yii::$app->session['ss_user'];                        
-        $model = New usuariocliente();        
+        $model = New Usuariocliente();        
         $model =  $model->findxIdUsuario($modeluser->intIdUsuario);        
         // ver porque no funciona el load 
         if ($model->load(Yii::$app->request->post())) { 
@@ -142,7 +142,7 @@ class UsuarioclienteController extends Controller
             if($model->intCodigoSexo == null){
                 $model->intCodigoSexo = 0;
             }  
-            
+                                  
             if($model->intIdUbigeo == null){
                 $model->intIdUbigeo = 0;
                 $model->vchDomicilioUbigeo = '';
@@ -197,7 +197,78 @@ class UsuarioclienteController extends Controller
             if($ubigeoItem->intIdubigeo==$idUbigeo){
                     return $ubigeoItem->vchUbigeo;
             }
-     }
-    
+     }    
     }
+    
+    public function actionUpdatecuenta(){
+                       
+        $modeltablacodigo = new Tablacodigo();
+        $modeluser = new Usuario();
+        $modeluser =Yii::$app->session['ss_user'];                        
+        $model = New Usuario();        
+        $model =  $model->findxIdPk($modeluser->intIdUsuario); 
+        $model->bitActivo = !$model->bitActivo;        
+        if ($model->load(Yii::$app->request->post())) {                         
+            $model->dtiFechaUltMod =date('Y-m-d H:i:s');  
+            $model->bitActivo = !$model->bitActivo;
+            if($model->bitActivo == false){
+              // Significa que se dabar de baja al usuario
+              $modeltablacodigo= $modeltablacodigo->findxcodigo($model::STATUS_CUENTA_DESACTIVADA);              
+              $model->dtiFechaBaja = date('Y-m-d H:i:s');  
+              $model->intCodigoEstado = $modeltablacodigo->intIdTablaCodigo;              
+            }
+            $model = $model->updateCuentaTipouno($model);
+            if($model==null){  
+                
+                Yii::$app->session->setFlash('msg', '
+                    <div class="alert alert-danger alert-dismissable text-center">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <h4><i class="icon fa fa-ban"></i> Aviso!</h4>
+                    <strong>No se pudo actualizar la cuenta del perfil</strong></div>'
+                 ); 
+                // .$model->mensaje.
+                return $this->render('updatecuenta', [
+                    'model' => $model,
+                ]);  
+                
+                //throw new NotFoundHttpException('Error al actualizar el perfil del cliente');
+            }else
+            {                                                              
+               Yii::$app->session->setFlash('msg', '
+                    <div class="alert alert-success alert-dismissable text-center">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <h4><i class="icon fa fa-check"></i> Aviso!</h4>
+                    <strong>Cuenta actualizada correctamente.</strong></div>'
+                 );
+                       
+               $model->bitActivo = !$model->bitActivo;
+                return $this->render('updatecuenta', [
+                    'model' => $model,
+                ]);
+            }                                
+        } else {              
+            return $this->render('updatecuenta', [
+                'model' => $model,
+            ]);
+        }
+                        
+    }
+    
+    
+    public function actionVerclavecuenta(){                               
+        $modeluser = new Usuario();
+        $modeluser =Yii::$app->session['ss_user'];                        
+        $model = New Usuario();        
+        $model =  $model->findxIdPk($modeluser->intIdUsuario);         
+        if ($model->load(Yii::$app->request->post())) {                         
+                              
+        } else { 
+           // echo 'llego al controlador';            print_r($model); die();
+            return $this->renderAjax('verclavecuenta', [
+                'model' => $model,
+            ]);
+        }
+                        
+    }
+    
 }

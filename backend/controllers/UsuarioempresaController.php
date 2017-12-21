@@ -200,4 +200,59 @@ class UsuarioempresaController extends Controller
     }
 
     
+    
+public function actionUpdatecuenta(){
+                       
+        $modeltablacodigo = new Tablacodigo();
+        $modeluser = new Usuario();
+        $modeluser =Yii::$app->session['ss_user'];                        
+        $model = New Usuario();        
+        $model =  $model->findxIdPk($modeluser->intIdUsuario); 
+        $model->bitActivo = !$model->bitActivo;
+        if ($model->load(Yii::$app->request->post())) {                         
+            $model->dtiFechaUltMod =date('Y-m-d H:i:s');  
+            $model->bitActivo = !$model->bitActivo;
+            if($model->bitActivo == false){
+              // Significa que se dabar de baja al usuario
+              $modeltablacodigo= $modeltablacodigo->findxcodigo($model::STATUS_CUENTA_DESACTIVADA);              
+              $model->dtiFechaBaja = date('Y-m-d H:i:s');  
+              $model->intCodigoEstado = $modeltablacodigo->intIdTablaCodigo;              
+            }
+            $model = $model->updateCuentaTipouno($model);
+            if($model==null){  
+                
+                Yii::$app->session->setFlash('msg', '
+                    <div class="alert alert-danger alert-dismissable text-center">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <h4><i class="icon fa fa-ban"></i> Aviso!</h4>
+                    <strong>No se pudo actualizar la cuenta del perfil</strong></div>'
+                 ); 
+                // .$model->mensaje.
+                return $this->render('updatecuenta', [
+                    'model' => $model,
+                ]);  
+                
+                //throw new NotFoundHttpException('Error al actualizar el perfil del cliente');
+            }else
+            {                                                              
+               Yii::$app->session->setFlash('msg', '
+                    <div class="alert alert-success alert-dismissable text-center">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <h4><i class="icon fa fa-check"></i> Aviso!</h4>
+                    <strong>Cuenta actualizada correctamente.</strong></div>'
+                 );
+                       
+               $model->bitActivo = !$model->bitActivo;
+                return $this->render('updatecuenta', [
+                    'model' => $model,
+                ]);
+            }                                
+        } else {              
+            return $this->render('updatecuenta', [
+                'model' => $model,
+            ]);
+        }
+                        
+    }
+    
 }

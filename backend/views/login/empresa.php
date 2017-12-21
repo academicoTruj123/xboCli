@@ -89,7 +89,7 @@ $this->registerJs($script);
             </a>-->
 
         <?= Html::a(
-            'Recuperar password',
+            'Restaurar password',
             ['/login/empresarecuperarcontrasenia'],
             ['class' => 'login-page-cliente-recuperar']
         ) ?>

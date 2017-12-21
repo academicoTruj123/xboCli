@@ -863,3 +863,16 @@ fieldset[disabled] .btn-personalizado-3.focus {
 .skin-empresa.layout-top-nav .main-header > .logo:hover {
   background-color: #82DAC9;
 }
+
+
+.label-input-text{
+  font-size: 11px;      
+/*  font-family: verdana, sans-serif; */
+  color: #73807d;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-align: left;
+  letter-spacing: 0px;
+  line-height: 5px; 
+}

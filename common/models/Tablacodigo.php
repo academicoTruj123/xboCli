@@ -5,7 +5,8 @@ use Yii;
 use yii\base\NotSupportedException;
 use yii\base\Model;
 use restclient;
-
+use common\models\Reponseapi;
+use yii\helpers\ArrayHelper;
 /**
  * This is the model class for table "tablacodigo".
  *
@@ -23,6 +24,7 @@ class Tablacodigo extends Model
     public $intIdUsuarioUltMod;
     public $dtiFechaUltMod ;
     public $urlapiLogin ='http://localhost:8099/tablacodigorest';
+    //public $urlapiLogin ='';
     public $mensaje='';
 
     /**
@@ -33,7 +35,7 @@ class Tablacodigo extends Model
         return [
             [['vchCodigo', 'vchTexto', 'dtiFechaReg'], 'required'],
             [['bitActivo'], 'boolean'],
-            [['intIdUsuarioReg', 'intIdUsuarioUltMod'], 'integer'],
+            [['intIdTablaCodigo','intIdUsuarioReg', 'intIdUsuarioUltMod'], 'integer'],
             [['dtiFechaReg', 'dtiFechaUltMod'], 'safe'],
             [['vchCodigo'], 'string', 'max' => 6],
             [['vchTexto'], 'string', 'max' => 200],
@@ -72,9 +74,42 @@ class Tablacodigo extends Model
                 'Accept' => 'application/json'
             ]
         ]);
+        //$result =  $api->get('http://flowers.pe/expoapi/web/index.php?r=tablacodigorest%2Fview&id='.$idcodigo);        
         $result =  $api->get('/view/?id='.$idcodigo);                        
         $data = json_decode($result->response,true);
         $model->attributes = $data;        
         return $model->vchCodigo;           
     }
+    
+    
+    public function findxcodigo($codigo){
+        //llamada al servicio web
+        $api = new RestClient([
+                'base_url' =>$this->urlapiLogin,
+                'header' =>[
+                'Accept' => 'application/json'                    
+               ]              
+                
+        ]);
+        //$result = $api->post('http://flowers.pe/expoapi/web/index.php?r=tablacodigorest%2Ffindtablacodigoxcodigo', json_encode($codigo),array('Content-Type' => 'application/json'));
+        $result = $api->post('/findtablacodigoxcodigo', json_encode($codigo),array('Content-Type' => 'application/json'));        
+        $model = new Tablacodigo(); 
+        $responseapi = new Reponseapi();
+        $responseapi =json_decode($result->response,true);                    
+        $status=ArrayHelper::getValue($responseapi, 'status');
+        if($status==true){
+            $arrayatributo=ArrayHelper::getValue($responseapi, 'data');
+            $model->attributes = $arrayatributo;    
+            
+          //  echo 'tabla codio - $responseapi :: ';   print_r($model); die();
+        }else{
+            $model=null;                      
+        }        
+        return $model;        
+    }
+    
+    
+
+    
+    
 }

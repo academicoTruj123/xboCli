@@ -16,9 +16,12 @@ class LoginForm extends Model
     public $password;
     public $rememberMe = true;
     public $intTipoLogin;   
+    public $intTipoUsuario; 
+    public $vchTipoUsuario; 
 
     private $_user;
     public $urlapiLogin ='http://localhost:8099/loginrest';
+    //public $urlapiLogin ='';
     public $mensaje='';
 
     const LOGIN_CUENTA_SISTEMA = '0201';
@@ -71,8 +74,9 @@ class LoginForm extends Model
                         'Accept' => 'application/json'                    
                        ]                              
                 ]);    
-                
-                
+                                               
+                //echo 'validarlogin ';print_r($model);die;
+                //$result = $api->post('http://flowers.pe/expoapi/web/index.php?r=loginrest%2Fvalidarlogin', json_encode($model),array('Content-Type' => 'application/json'));                
                 $result = $api->post('/validarlogin', json_encode($model),array('Content-Type' => 'application/json'));                         
                 $modelusu = new Usuario(); 
                 $responseapi = new Reponseapi();
@@ -107,7 +111,11 @@ class LoginForm extends Model
         return $this->_user;
     }
     
-    
+     public function getGeneratedPassRecuperacion()
+    {                
+        $this->password = Yii::$app->security->generateRandomString(6);
+    }
+                       
     public function recuperarcontrasenia($model)
     {               
         //if ($this->validate()) {                           
@@ -116,10 +124,12 @@ class LoginForm extends Model
                         'header' =>[
                         'Accept' => 'application/json'                    
                        ]                              
-                ]);                          
+                ]);  
+                
+                //$result = $api->post('http://flowers.pe/expoapi/web/index.php?r=loginrest%2Frecuperarcontrasena', json_encode($model),array('Content-Type' => 'application/json'));
                 $result = $api->post('/recuperarcontrasena', json_encode($model),array('Content-Type' => 'application/json'));                         
                 $modelusu = new Usuario(); 
-                $responseapi = new Reponseapi();
+                $responseapi = new Reponseapi();                                                
                 $responseapi =json_decode($result->response);                
                 if($responseapi->status==true){
                     $modelusu=$responseapi->data;

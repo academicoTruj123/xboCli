@@ -1,5 +1,4 @@
 <?php
-use yii\helpers\Html;
 use backend\models\Usuario;
 ?>
 <aside class="main-sidebar">
@@ -30,37 +29,54 @@ use backend\models\Usuario;
         </form>
         <!-- /.search form -->
 
-        
+       
         
 <?php 
 if (Yii::$app->session->get('ss_user')): 
     $usersession = new Usuario(); 
            $usersession =Yii::$app->session->get('ss_user');
+           
            switch($usersession->intCodigoRol) {
-               case 10:                    
-                dmstr\widgets\Menu::widget(
+               case 10:                                   
+                    echo dmstr\widgets\Menu::widget(
+                                [
+                                    'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
+                                    'items' => [
+                                        ['label' => 'Menu', 'options' => ['class' => 'header']],                                        
+                                        [
+                                            'label' => 'Mi Perfil',
+                                            'icon' => 'fa fa-users',
+                                            'url' => '#',
+                                            'items' => [
+                                                ['label' => 'Datos Cuenta', 'icon' => 'fa fa-id-card-o', 'url' => ['/usuariocliente/updatecuenta'],],
+                                                ['label' => 'Datos Info', 'icon' => 'file-code-o', 'url' => ['/usuariocliente/updateperfil'],],
+                                            ],
+                                        ],
+                                    ],
+                                ]
+                            );
+               break; 
+               case 11:                  
+                echo dmstr\widgets\Menu::widget(
                             [
                                 'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
                                 'items' => [
-                                    ['label' => 'Menu', 'options' => ['class' => 'header']],
-                                    ['label' => 'Mi perfil', 'icon' => 'file-code-o', 'url' => ['/usuariocliente/updateperfil']],                                    
-                                ],
-                            ]
-                        );                       
-               break;
-               case 11: 
-                dmstr\widgets\Menu::widget(
-                            [
-                                'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
-                                'items' => [
-                                    ['label' => 'Menu', 'options' => ['class' => 'header']],
-                                    ['label' => 'Mi perfil', 'icon' => 'file-code-o', 'url' => ['/usuarioempresa/updateperfil']],                                    
+                                    ['label' => 'Menu', 'options' => ['class' => 'header']],                                                                      
+                                        [
+                                            'label' => 'Mi Perfil',
+                                            'icon' => 'fa fa-users',
+                                            'url' => '#',
+                                            'items' => [
+                                                ['label' => 'Datos Cuenta', 'icon' => 'fa fa-id-card-o', 'url' => ['/usuarioempresa/updatecuenta'],],
+                                                ['label' => 'Datos Info', 'icon' => 'file-code-o', 'url' => ['/usuarioempresa/updateperfil'],],
+                                            ],
+                                        ],                                    
                                 ],
                             ]
                         );                     
                break;
-               case 12: 
-                dmstr\widgets\Menu::widget(
+               case 12:                    
+               echo dmstr\widgets\Menu::widget(
                             [
                                 'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
                                 'items' => [
@@ -70,10 +86,11 @@ if (Yii::$app->session->get('ss_user')):
                         );                   
                break;            
                default :                    
+                   break;
        }
 else:     
     
-dmstr\widgets\Menu::widget(
+echo dmstr\widgets\Menu::widget(
             [
                 'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
                 'items' => [

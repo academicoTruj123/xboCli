@@ -4,6 +4,7 @@ use Yii;
 use yii\base\Model;
 use restclient;
 use common\models\Reponseapi;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "usuario".
@@ -21,6 +22,7 @@ use common\models\Reponseapi;
  * @property string $dtiFechaUltMod
  * @property integer $intTipoLogin
  * @property integer $intCodigoRol
+ * @property integer $intTipoUsuario;
  */
 class Usuario extends Model
 {    
@@ -33,6 +35,11 @@ class Usuario extends Model
     const ROL_CLIENTE = '0301';
     const ROL_EMPRESA = '0302';
     const ROL_ADMINISTRADOR = '0303';
+    
+    const TIPO_CLIENTE = '0401';
+    const TIPO_EMPRESA = '0402';
+    const TIPO_ADMINISTRADOR = '0403'; 
+    
     
     public $intIdUsuario;
     public $vchCorreo;
@@ -47,20 +54,22 @@ class Usuario extends Model
     public $dtiFechaUltMod;
     public $intTipoLogin;
     public $intCodigoRol;
-
+    public $intTipoUsuario;
     
     private $urlapiLogin ='http://localhost:8099/loginrest';
    // private $urlapiLogin ='';
-    
+    private $urlapiUser ='http://localhost:8099/usuariorest';
+   // private $urlapiUser ='';    
+            
     /**
-     * @inheritdoc
+     * @inheritdoc dtiFechaBaja
      */
     public function rules()
     {
         return [
             [['vchCorreo', 'vchClave', 'vchCodVerificacion', 'intCodigoEstado', 'dtiFechaReg'], 'required'],
-            [['intCodigoEstado', 'intTipoLogin', 'intCodigoRol'], 'integer'],
-            [['dtiFechaAlta', 'dtiFechaBaja', 'dtiFechaReg', 'dtiFechaUltMod'], 'safe'],
+            [['intIdUsuario','intCodigoEstado', 'intTipoLogin', 'intCodigoRol','intTipoUsuario'], 'integer'],
+            [['dtiFechaAlta', 'dtiFechaReg', 'dtiFechaUltMod','dtiFechaBaja'], 'safe'],
             [['bitActivo'], 'boolean'],
             [['vchCorreo'], 'string', 'max' => 250],
             [['vchClave'], 'string', 'max' => 128],
@@ -76,8 +85,8 @@ class Usuario extends Model
     {
         return [
             'intIdUsuario' => 'Int Id Usuario',
-            'vchCorreo' => 'Ingresar correo',
-            'vchClave' => 'Ingresar clave',
+            'vchCorreo' => 'Correo',
+            'vchClave' => 'Clave',
             'vchAuthKey' => 'Vch Auth Key',
             'vchCodVerificacion' => 'Vch Cod Verificacion',
             'intCodigoEstado' => 'Int Codigo Estado',
@@ -88,6 +97,7 @@ class Usuario extends Model
             'dtiFechaUltMod' => 'Dti Fecha Ult Mod',
             'intTipoLogin' => 'Int Tipo Login',
             'intCodigoRol' => 'Int Codigo Rol',
+            'intTipoUsuario' => 'Int Tipo usuario',
         ];
     }
 
@@ -111,6 +121,93 @@ class Usuario extends Model
         echo print_r($result);die;
        // echo print_r($model);die;
     }
+    
+    
+    public function findxIdPk($id){
+        //llamada al servicio web
+        $api = new RestClient([
+                'base_url' =>$this->urlapiUser,
+                'header' =>[
+                'Accept' => 'application/json'                    
+               ]              
+                
+        ]);                          
+        //$result = $api->post('http://flowers.pe/expoapi/web/index.php?r=usuariorest%2Fview&id=', json_encode($id),array('Content-Type' => 'application/json'));
+        $result = $api->get('/view/?id='.$id);                        
+        $data = json_decode($result->response,true);
+        $model = new Usuario(); 
+        $model->attributes = $data;                                
+       // echo print_r($model);die;
+       return $model;
+    }
+    
+            
+    public function findxIdUsuario($id){
+        //llamada al servicio web
+        $api = new RestClient([
+                'base_url' =>$this->urlapiUser,
+                'header' =>[
+                'Accept' => 'application/json'                    
+               ]              
+                
+        ]);
+        //$result = $api->post('http://flowers.pe/expoapi/web/index.php?r=usuariorest%2Ffindusuarioxiduser', json_encode($id),array('Content-Type' => 'application/json'));
+        $result = $api->post('/findusuarioxiduser', json_encode($id),array('Content-Type' => 'application/json'));                                         
+        //$data = json_decode($result->response,true);                         
+        $model = new Usuario(); 
+        $responseapi = new Reponseapi();
+        $responseapi =json_decode($result->response,true);                   
+        $status=ArrayHelper::getValue($responseapi, 'status');
+        if($status==true){
+            $arrayatributo=ArrayHelper::getValue($responseapi, 'data');
+            $model->attributes = $arrayatributo;           
+        }else{
+            $model=null;
+            //$this->mensaje=$responseapi->data;           
+        }        
+        return $model;        
+    }
+    
+    
+    public function update($model){
+        //llamada al servicio web
+        $api = new RestClient([
+                'base_url' =>$this->urlapiUser,
+                'header' =>[
+                'Accept' => 'application/json'                    
+               ]              
+                
+        ]);          
+        //$result = $api->put('http://flowers.pe/expoapi/web/index.php?r=usuariorest%2Fupdate&id='.$model->intIdUsuario, json_encode($model),array('Content-Type' => 'application/json'));                               
+        $result = $api->put('/update/?id='.$model->intIdUsuario, json_encode($model),array('Content-Type' => 'application/json'));                            
+        
+       echo '$model-$result :: ';  print_r($result); die() ;
+        
+        $model = new Usuario(); 
+        $model->attributes=json_decode($result->response,true);  
+        return $model;       
+    } 
+    
+    // actualiza solo el password, estado(baja)
+    public function updateCuentaTipouno($model){
+        //llamada al servicio web
+        $api = new RestClient([
+                'base_url' =>$this->urlapiUser,
+                'header' =>[
+                'Accept' => 'application/json'                    
+               ]              
+                
+        ]);                         
+        //$result = $api->post('http://flowers.pe/expoapi/web/index.php?r=usuariorest%2Fupdatetipouno, json_encode($model),array('Content-Type' => 'application/json'));                               
+        $result = $api->post('/updatetipouno', json_encode($model),array('Content-Type' => 'application/json'));                            
+       //echo '$model-$result :: ';  print_r($result); die() ;        
+        $model = new Usuario(); 
+        $model->attributes=json_decode($result->response,true);        
+        return $model;       
+    } 
+    
+    
+    
     
 }
 

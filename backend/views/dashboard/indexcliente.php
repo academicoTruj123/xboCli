@@ -13,15 +13,6 @@ $this->title = 'Cliente';
     </div>
 
     <div class="body-content">
-
-        <?= Html::a(
-            'Mi Perfil',
-            ['/usuariocliente/updateperfil'],            
-            ['class' => 'btn btn-default']
-        ) ?>
-        
-
-        
-        
+                         
     </div>
 </div>
